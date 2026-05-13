@@ -20,11 +20,19 @@
     .hotspot:focus-visible { outline: 2px dashed #fff; outline-offset: 2px; }
 
     @keyframes hotspotPulse {
-      0% { box-shadow: 0 0 0 0 rgba(255,255,255,.0); }
-      50% { box-shadow: 0 0 0 10px rgba(255,255,255,.18); }
-      100% { box-shadow: 0 0 0 0 rgba(255,255,255,.0); }
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0); }
+      55% { box-shadow: 0 0 36px 12px rgba(255,255,255,.26), 0 0 80px 28px rgba(255,255,255,.18), inset 0 0 22px 8px rgba(255,255,255,.20), inset 0 0 46px 18px rgba(255,255,255,.14); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0); }
     }
-    .zone:not(.active) .hotspot { animation: hotspotPulse 2.2s ease-in-out infinite; }
+    .zone { --pulse-delay: 0s; }
+    .zone:nth-of-type(1) { --pulse-delay: -0.15s; }
+    .zone:nth-of-type(2) { --pulse-delay: -0.65s; }
+    .zone:nth-of-type(3) { --pulse-delay: -1.05s; }
+    .zone:nth-of-type(4) { --pulse-delay: -1.55s; }
+    .zone:nth-of-type(5) { --pulse-delay: -0.35s; }
+    .zone:nth-of-type(6) { --pulse-delay: -1.35s; }
+    .zone:nth-of-type(7) { --pulse-delay: -0.9s; }
+    .zone:not(.active) .hotspot { animation: hotspotPulse 3.4s cubic-bezier(.22,.61,.36,1) infinite; animation-delay: var(--pulse-delay); }
 
     .tag {
       position: absolute;
@@ -49,7 +57,7 @@
       animation: none;
       background: rgba(255,255,255,.75);
       border-radius: 34px;
-      box-shadow: 0 0 0 20px rgba(255,255,255,.75);
+      backdrop-filter: blur(8px) saturate(120%);`r`n      -webkit-backdrop-filter: blur(8px) saturate(120%);`r`n      box-shadow: 0 0 0 20px rgba(255,255,255,.55);
     }
     .zone.active .tag { opacity: 1; transform: translate(-50%, -110%); }
 
@@ -70,43 +78,43 @@
 
     <section class="zone" data-mode="link" data-href="pages/video-ioanis.html">
       <img class="overlay" src="FOND-SITE-DANSERUNA-contacteur2-transparent.png" alt="">
-      <button class="hotspot" style="left:56.6146%;top:39.9306%;width:35.4688%;height:14.0278%;" aria-label="CONTACTEURS 2"></button>
+      <button class="hotspot" style="left:55.5729%;top:39.4676%;width:37.5521%;height:14.9537%;" aria-label="CONTACTEURS 2"></button>
       <span class="tag">VIDEO - IOANIS</span>
     </section>
 
     <section class="zone" data-mode="link" data-href="pages/selection-photos-regis.html">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Contacteurs-transparent.png" alt="">
-      <button class="hotspot" style="left:5.8333%;top:26.9213%;width:45.9375%;height:13.4722%;" aria-label="CONTACTEURS 1"></button>
+      <button class="hotspot" style="left:4.7916%;top:26.4583%;width:48.0208%;height:14.3981%;" aria-label="CONTACTEURS 1"></button>
       <span class="tag">SELECTION PHOTOS REGIS</span>
     </section>
 
     <section class="zone" data-mode="link" data-href="pages/enregistrement-bal.html">
       <img class="overlay" src="FOND-SITE-DANSERUNA-MUSICIENS-transparent.png" alt="">
-      <button class="hotspot" style="left:4.2188%;top:50.1157%;width:36.8750%;height:18.8657%;" aria-label="MUSICIENS"></button>
+      <button class="hotspot" style="left:3.1771%;top:49.6527%;width:38.9583%;height:19.7916%;" aria-label="MUSICIENS"></button>
       <span class="tag">ENREGISTREMENT BAL</span>
     </section>
 
     <section class="zone" data-mode="link" data-href="pages/village-infos-pratiques.html">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Village-transparent.png" alt="">
-      <button class="hotspot" style="left:29.7917%;top:90.1620%;width:26.8229%;height:9.8380%;" aria-label="VILLAGE"></button>
+      <button class="hotspot" style="left:28.7500%;top:89.6990%;width:28.9062%;height:10.3010%;" aria-label="VILLAGE"></button>
       <span class="tag">VILLAGE / INFOS PRATIQUES</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="LA MEMBRANE" data-text="LA MEMBRANE">
       <img class="overlay" src="FOND-SITE-DANSERUNA-MAIN-transparent.png" alt="">
-      <button class="hotspot" style="left:52.6562%;top:20.8796%;width:15.1562%;height:5.4398%;" aria-label="LA MAIN"></button>
+      <button class="hotspot" style="left:51.6145%;top:20.4166%;width:17.2395%;height:6.3657%;" aria-label="LA MAIN"></button>
       <span class="tag">LA MEMBRANE</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="LES ATELIERS - PEDAGOGIE" data-text="LES ATELIERS - PEDAGOGIE">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Squelette-transparent.png" alt="">
-      <button class="hotspot" style="left:71.2500%;top:65.9259%;width:15.4167%;height:14.9769%;" aria-label="SQUELETTE"></button>
+      <button class="hotspot" style="left:70.2083%;top:65.4629%;width:17.5000%;height:15.9028%;" aria-label="SQUELETTE"></button>
       <span class="tag">LES ATELIERS - PEDAGOGIE</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="DANSERUNA" data-text="Texte explicatif du festival">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Titre-transparent.png" alt="">
-      <button class="hotspot" style="left:8.8542%;top:3.5185%;width:83.2292%;height:7.0833%;" aria-label="DANSERUNA"></button>
+      <button class="hotspot" style="left:7.8125%;top:3.0555%;width:85.3125%;height:8.0092%;" aria-label="DANSERUNA"></button>
       <span class="tag">DANSERUNA</span>
     </section>
   </main>
@@ -192,5 +200,6 @@
   </script>
 </body>
 </html>
+
 
 
