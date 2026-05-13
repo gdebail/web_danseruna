@@ -16,13 +16,13 @@
     .base { z-index: 0; }
     .overlay { z-index: 7; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
 
-    .hotspot { position: absolute; z-index: 6; background: transparent; border: 0; padding: 0; cursor: pointer; border-radius: var(--rr, 42% 58% 49% 51% / 58% 44% 56% 42%); }
+    .hotspot { position: absolute; z-index: 6; background: transparent; border: 0; padding: 0; cursor: pointer; border-radius: var(--rr, 42% 58% 49% 51% / 58% 44% 56% 42%); overflow: visible; }
     .hotspot:focus-visible { outline: 2px dashed #fff; outline-offset: 2px; }
 
     @keyframes hotspotPulse {
       0% { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0); }
-      55% { box-shadow: 0 0 46px 16px rgba(255,255,255,.34), 0 0 110px 36px rgba(255,255,255,.24), inset 0 0 46px 16px rgba(255,255,255,.34), inset 0 0 110px 36px rgba(255,255,255,.24); }
-      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0); }
+      55% { box-shadow: 0 0 24px 9px rgba(255,255,255,.28), 0 0 54px 16px rgba(255,255,255,.18), inset 0 0 24px 9px rgba(255,255,255,.28), inset 0 0 54px 16px rgba(255,255,255,.18); }
+      100% { box-shadow: 0 0 8px 3px rgba(255,255,255,.10), 0 0 18px 6px rgba(255,255,255,.06), inset 0 0 8px 3px rgba(255,255,255,.10), inset 0 0 18px 6px rgba(255,255,255,.06); }
     }
     .zone { --pulse-delay: 0s; }
     .zone:nth-of-type(1) { --pulse-delay: -0.15s; }
@@ -57,20 +57,44 @@
     .zone.active .overlay { opacity: 1; }
     .zone.active .hotspot {
       animation: none;
-      background: rgba(255,255,255,.75);
-      border-radius: 34px;
-      backdrop-filter: blur(8px) saturate(120%);`r`n      -webkit-backdrop-filter: blur(8px) saturate(120%);`r`n      box-shadow: 0 0 0 20px rgba(255,255,255,.55);
+      background: rgba(255,255,255,.72);
+      border-radius: 51px;
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      box-shadow: 0 0 0 6px rgba(255,255,255,.24);
+    }
+    .zone.active .hotspot::before {
+      content: '';
+      position: absolute;
+      inset: -16px;
+      border-radius: 63px;
+      background: rgba(255,255,255,.55);
+      filter: blur(16px);
+      opacity: .7;
+      z-index: -1;
+      pointer-events: none;
     }
     .zone.active .tag { opacity: 1; transform: translate(-50%, -110%); }
 
     @keyframes hotspotMorph {
       0% { border-radius: var(--rr-a, 42% 58% 49% 51% / 58% 44% 56% 42%); transform: translate(0,0) rotate(0deg); }
-      50% { border-radius: var(--rr-b, 54% 46% 60% 40% / 45% 55% 40% 60%); transform: translate(.3%, -.2%) rotate(-.3deg); }
-      100% { border-radius: var(--rr-c, 48% 52% 43% 57% / 62% 38% 57% 43%); transform: translate(-.2%, .2%) rotate(.35deg); }
+      50% { border-radius: var(--rr-b, 62% 38% 68% 32% / 34% 66% 30% 70%); transform: translate(1.2%, -.9%) rotate(-1.4deg); }
+      100% { border-radius: var(--rr-c, 35% 65% 31% 69% / 72% 28% 69% 31%); transform: translate(-1.0%, .9%) rotate(1.5deg); }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .zone:not(.active) .hotspot { animation: none; }
+    }
+
+    @media (max-width: 900px) {
+      .zone:not(.active) .hotspot { animation-duration: 4.6s; }
+      @keyframes hotspotPulse {
+        0% { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0), inset 0 0 0 0 rgba(255,255,255,0); }
+        55% { box-shadow: 0 0 16px 6px rgba(255,255,255,.20), 0 0 34px 10px rgba(255,255,255,.12), inset 0 0 16px 6px rgba(255,255,255,.20), inset 0 0 34px 10px rgba(255,255,255,.12); }
+        100% { box-shadow: 0 0 8px 3px rgba(255,255,255,.10), 0 0 18px 6px rgba(255,255,255,.06), inset 0 0 8px 3px rgba(255,255,255,.10), inset 0 0 18px 6px rgba(255,255,255,.06); }
+      }
+      .zone.active .hotspot { box-shadow: 0 0 0 4px rgba(255,255,255,.20); }
+      .zone.active .hotspot::before { inset: -10px; border-radius: 57px; filter: blur(11px); opacity: .55; }
     }
 
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,.65); display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
@@ -84,45 +108,45 @@
   <main class="scene" id="scene">
     <img class="base" src="FOND-SITE-DANSERUNA-1.jpg" alt="Danseruna">
 
-    <section class="zone" data-mode="link" data-href="pages/video-ioanis.html">
+    <section class="zone" data-mode="modal" data-title="VIDEO - IOANIS" data-text="VIDEO - IOANIS">
       <img class="overlay" src="FOND-SITE-DANSERUNA-contacteur2-transparent.png" alt="">
-      <button class="hotspot" style="left:55.5729%;top:39.4676%;width:37.5521%;height:14.9537%; --rr: 46% 54% 39% 61% / 57% 43% 59% 41%; --rr-a: 46% 54% 39% 61% / 57% 43% 59% 41%; --rr-b: 55% 45% 52% 48% / 44% 56% 46% 54%; --rr-c: 40% 60% 47% 53% / 63% 37% 58% 42%;" aria-label="CONTACTEURS 2"></button>
+      <button class="hotspot" style="left:55.5729%;top:39.4676%;width:37.5521%;height:14.9537%; --rr: 46% 54% 39% 61% / 57% 43% 59% 41%; --rr-a: 46% 54% 39% 61% / 57% 43% 59% 41%; --rr-b: 68% 32% 63% 37% / 31% 69% 33% 67%; --rr-c: 34% 66% 28% 72% / 74% 26% 68% 32%;" aria-label="CONTACTEURS 2"></button>
       <span class="tag">VIDEO - IOANIS</span>
     </section>
 
-    <section class="zone" data-mode="link" data-href="pages/selection-photos-regis.html">
+    <section class="zone" data-mode="modal" data-title="SELECTION PHOTOS REGIS" data-text="SELECTION PHOTOS REGIS">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Contacteurs-transparent.png" alt="">
-      <button class="hotspot" style="left:4.7916%;top:26.4583%;width:48.0208%;height:14.3981%; --rr: 58% 42% 50% 50% / 40% 60% 45% 55%; --rr-a: 58% 42% 50% 50% / 40% 60% 45% 55%; --rr-b: 49% 51% 61% 39% / 55% 45% 62% 38%; --rr-c: 62% 38% 45% 55% / 43% 57% 47% 53%;" aria-label="CONTACTEURS 1"></button>
+      <button class="hotspot" style="left:4.7916%;top:26.4583%;width:48.0208%;height:14.3981%; --rr: 58% 42% 50% 50% / 40% 60% 45% 55%; --rr-a: 58% 42% 50% 50% / 40% 60% 45% 55%; --rr-b: 71% 29% 66% 34% / 30% 70% 36% 64%; --rr-c: 36% 64% 33% 67% / 73% 27% 64% 36%;" aria-label="CONTACTEURS 1"></button>
       <span class="tag">SELECTION PHOTOS REGIS</span>
     </section>
 
-    <section class="zone" data-mode="link" data-href="pages/enregistrement-bal.html">
+    <section class="zone" data-mode="modal" data-title="ENREGISTREMENT BAL" data-text="ENREGISTREMENT BAL">
       <img class="overlay" src="FOND-SITE-DANSERUNA-MUSICIENS-transparent.png" alt="">
-      <button class="hotspot" style="left:3.1771%;top:49.6527%;width:38.9583%;height:19.7916%; --rr: 41% 59% 56% 44% / 60% 40% 52% 48%; --rr-a: 41% 59% 56% 44% / 60% 40% 52% 48%; --rr-b: 53% 47% 44% 56% / 48% 52% 39% 61%; --rr-c: 47% 53% 59% 41% / 63% 37% 57% 43%;" aria-label="MUSICIENS"></button>
+      <button class="hotspot" style="left:3.1771%;top:49.6527%;width:38.9583%;height:19.7916%; --rr: 41% 59% 56% 44% / 60% 40% 52% 48%; --rr-a: 41% 59% 56% 44% / 60% 40% 52% 48%; --rr-b: 66% 34% 61% 39% / 35% 65% 31% 69%; --rr-c: 30% 70% 36% 64% / 72% 28% 63% 37%;" aria-label="MUSICIENS"></button>
       <span class="tag">ENREGISTREMENT BAL</span>
     </section>
 
-    <section class="zone" data-mode="link" data-href="pages/village-infos-pratiques.html">
+    <section class="zone" data-mode="modal" data-title="VILLAGE / INFOS PRATIQUES" data-text="VILLAGE / INFOS PRATIQUES">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Village-transparent.png" alt="">
-      <button class="hotspot" style="left:28.7500%;top:89.6990%;width:28.9062%;height:10.3010%; --rr: 60% 40% 43% 57% / 54% 46% 61% 39%; --rr-a: 60% 40% 43% 57% / 54% 46% 61% 39%; --rr-b: 45% 55% 58% 42% / 40% 60% 46% 54%; --rr-c: 52% 48% 39% 61% / 62% 38% 55% 45%;" aria-label="VILLAGE"></button>
+      <button class="hotspot" style="left:28.7500%;top:89.6990%;width:28.9062%;height:10.3010%; --rr: 60% 40% 43% 57% / 54% 46% 61% 39%; --rr-a: 60% 40% 43% 57% / 54% 46% 61% 39%; --rr-b: 74% 26% 58% 42% / 33% 67% 35% 65%; --rr-c: 32% 68% 29% 71% / 76% 24% 61% 39%;" aria-label="VILLAGE"></button>
       <span class="tag">VILLAGE / INFOS PRATIQUES</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="LA MEMBRANE" data-text="LA MEMBRANE">
       <img class="overlay" src="FOND-SITE-DANSERUNA-MAIN-transparent.png" alt="">
-      <button class="hotspot" style="left:51.6145%;top:20.4166%;width:17.2395%;height:6.3657%; --rr: 44% 56% 62% 38% / 47% 53% 40% 60%; --rr-a: 44% 56% 62% 38% / 47% 53% 40% 60%; --rr-b: 57% 43% 48% 52% / 61% 39% 56% 44%; --rr-c: 39% 61% 53% 47% / 43% 57% 38% 62%;" aria-label="LA MAIN"></button>
+      <button class="hotspot" style="left:51.6145%;top:20.4166%;width:17.2395%;height:6.3657%; --rr: 44% 56% 62% 38% / 47% 53% 40% 60%; --rr-a: 44% 56% 62% 38% / 47% 53% 40% 60%; --rr-b: 63% 37% 73% 27% / 29% 71% 34% 66%; --rr-c: 28% 72% 37% 63% / 74% 26% 30% 70%;" aria-label="LA MAIN"></button>
       <span class="tag">LA MEMBRANE</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="LES ATELIERS - PEDAGOGIE" data-text="LES ATELIERS - PEDAGOGIE">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Squelette-transparent.png" alt="">
-      <button class="hotspot" style="left:70.2083%;top:65.4629%;width:17.5000%;height:15.9028%; --rr: 52% 48% 41% 59% / 59% 41% 63% 37%; --rr-a: 52% 48% 41% 59% / 59% 41% 63% 37%; --rr-b: 40% 60% 55% 45% / 46% 54% 42% 58%; --rr-c: 61% 39% 47% 53% / 64% 36% 57% 43%;" aria-label="SQUELETTE"></button>
+      <button class="hotspot" style="left:70.2083%;top:65.4629%;width:17.5000%;height:15.9028%; --rr: 52% 48% 41% 59% / 59% 41% 63% 37%; --rr-a: 52% 48% 41% 59% / 59% 41% 63% 37%; --rr-b: 69% 31% 57% 43% / 34% 66% 74% 26%; --rr-c: 33% 67% 27% 73% / 76% 24% 58% 42%;" aria-label="SQUELETTE"></button>
       <span class="tag">LES ATELIERS - PEDAGOGIE</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="DANSERUNA" data-text="Texte explicatif du festival">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Titre-transparent.png" alt="">
-      <button class="hotspot" style="left:7.8125%;top:3.0555%;width:85.3125%;height:8.0092%; --rr: 49% 51% 57% 43% / 42% 58% 49% 51%; --rr-a: 49% 51% 57% 43% / 42% 58% 49% 51%; --rr-b: 56% 44% 45% 55% / 60% 40% 53% 47%; --rr-c: 43% 57% 61% 39% / 39% 61% 44% 56%;" aria-label="DANSERUNA"></button>
+      <button class="hotspot" style="left:7.8125%;top:3.0555%;width:85.3125%;height:8.0092%; --rr: 49% 51% 57% 43% / 42% 58% 49% 51%; --rr-a: 49% 51% 57% 43% / 42% 58% 49% 51%; --rr-b: 67% 33% 62% 38% / 31% 69% 43% 57%; --rr-c: 31% 69% 34% 66% / 75% 25% 64% 36%;" aria-label="DANSERUNA"></button>
       <span class="tag">DANSERUNA</span>
     </section>
   </main>
@@ -208,6 +232,7 @@
   </script>
 </body>
 </html>
+
 
 
 
