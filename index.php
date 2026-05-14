@@ -8,7 +8,8 @@
   <style>
     :root { --bg:#050505; --label:#ffe94d; --label-text:#111; }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: #fff; font-family: Arial, sans-serif; display: flex; justify-content: center; }
+    body { margin: 0; background: var(--bg); color: #fff; font-family: Arial, sans-serif; display: flex; justify-content: center; transition: opacity .14s ease; }
+    body.is-rotating { opacity: 0; }
     .scene { position: relative; width: min(100vw, 1920px); aspect-ratio: 1920 / 4320; overflow: hidden; background: #000; }
 
     .base,
@@ -254,10 +255,27 @@
       });
     }
 
+    function forceViewportScaleOne() {
+      const viewportMeta = document.querySelector('meta[name="viewport"]');
+      if (!viewportMeta) return;
+      viewportMeta.setAttribute(
+        'content',
+        'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no'
+      );
+    }
+
+    function hardReloadWithBust() {
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', String(Date.now()));
+      window.location.replace(url.toString());
+    }
+
     window.addEventListener('orientationchange', scheduleLayoutRefresh);
     window.addEventListener('orientationchange', () => {
       // iOS Safari can keep stale layout metrics after rotation; hard reload fixes hotspot alignment.
-      setTimeout(() => window.location.reload(), 180);
+      document.body.classList.add('is-rotating');
+      forceViewportScaleOne();
+      setTimeout(() => hardReloadWithBust(), 180);
     });
     window.addEventListener('pageshow', scheduleLayoutRefresh);
     if (window.visualViewport) {
