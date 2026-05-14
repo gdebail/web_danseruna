@@ -1,0 +1,66 @@
+[
+  {
+    "heading": "DANSERUNA#8 2025",
+    "year": "2025",
+    "edition": 8,
+    "folder": "2025_edition_08",
+    "image_count": 15,
+    "text_count": 3
+  },
+  {
+    "heading": "DANSERUNA#7 2024",
+    "year": "2024",
+    "edition": 7,
+    "folder": "2024_edition_07",
+    "image_count": 20,
+    "text_count": 3
+  },
+  {
+    "heading": "DANSERUNA#6 2023",
+    "year": "2023",
+    "edition": 6,
+    "folder": "2023_edition_06",
+    "image_count": 17,
+    "text_count": 3
+  },
+  {
+    "heading": "DANSERUNA#5 2022",
+    "year": "2022",
+    "edition": 5,
+    "folder": "2022_edition_05",
+    "image_count": 19,
+    "text_count": 4
+  },
+  {
+    "heading": "DANSERUNA#4 2021",
+    "year": "2021",
+    "edition": 4,
+    "folder": "2021_edition_04",
+    "image_count": 19,
+    "text_count": 4
+  },
+  {
+    "heading": "DANSERUNA#3 Reporté au 08/2020",
+    "year": "2020",
+    "edition": 3,
+    "folder": "2020_edition_03",
+    "image_count": 22,
+    "text_count": 3
+  },
+  {
+    "heading": "Danseruna#2 05/2019",
+    "year": "2019",
+    "edition": 2,
+    "folder": "2019_edition_02",
+    "image_count": 20,
+    "text_count": 3
+  },
+  {
+    "heading": "Danseruna#1 05/2018",
+    "year": "2018",
+    "edition": 1,
+    "folder": "2018_edition_01",
+    "image_count": 0,
+    "text_count": 1
+  }
+]

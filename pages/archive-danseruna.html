@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archive Danseruna</title>
+  <style>
+    :root { --bg:#0a0a0a; --fg:#f4f4f4; --accent:#ffe94d; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(circle at top,#1b1b1b 0%,#090909 45%,#050505 100%); color:var(--fg); font-family:Arial,sans-serif; }
+    .wrap { width:min(1200px,94vw); margin:24px auto 48px; }
+    h1 { margin:8px 0 20px; font-size:clamp(26px,4vw,46px); letter-spacing:.03em; }
+    .sub { opacity:.8; margin-bottom:18px; }
+
+    .carousel-shell { position:relative; }
+    .carousel { display:flex; gap:18px; overflow:auto; scroll-snap-type:x mandatory; padding:8px 8px 18px; scrollbar-width:thin; }
+    .card { flex:0 0 clamp(220px,26vw,320px); scroll-snap-align:start; background:#121212; border-radius:0; border:1px solid #2e2e2e; overflow:hidden; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform:translateY(-4px); box-shadow:0 14px 28px rgba(0,0,0,.35); }
+    .card img { width:100%; height:430px; object-fit:contain; display:block; background:#0e0e0e; }
+    .meta { padding:10px 12px 14px; }
+    .meta b { color:var(--accent); font-size:12px; letter-spacing:.08em; }
+    .meta div { margin-top:4px; font-size:15px; font-weight:700; }
+
+    .nav { position:absolute; top:42%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%; border:1px solid rgba(255,233,77,.6); background:rgba(0,0,0,.75); color:#ffe94d; font-size:28px; font-weight:700; cursor:pointer; z-index:3; }
+    .nav.left { left:-24px; }
+    .nav.right { right:-24px; }
+
+    .modal { position:fixed; inset:0; background:rgba(0,0,0,.72); backdrop-filter: blur(3px); display:none; align-items:center; justify-content:center; z-index:90; }
+    .modal.open { display:flex; }
+    .stage { position:relative; width:min(1100px,94vw); height:min(82vh,820px); border-radius:24px; overflow:hidden; background:#0a0a0a; border:1px solid #2d2d2d; }
+
+    .collage { position:absolute; inset:0; }
+    .tile { position:absolute; border-radius:18px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.45); will-change: left, top, transform; }
+    .tile img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05) contrast(1.02); }
+
+    .hero { position:absolute; right:18px; bottom:18px; width:min(22vw,240px); height:min(46vh,360px); border-radius:12px; overflow:hidden; border:0; box-shadow:0 16px 36px rgba(0,0,0,.55); z-index:4; background:#0a0a0a; }
+    .hero img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
+
+    .label { position:absolute; left:16px; top:14px; background:var(--accent); color:#121212; font-weight:800; padding:8px 12px; border-radius:999px; z-index:3; }
+    .close { position:absolute; right:12px; top:10px; border:0; background:#111; color:#fff; border-radius:10px; padding:8px 10px; cursor:pointer; z-index:3; }
+    .edition-text { position:absolute; left:18px; right:44%; bottom:16px; z-index:4; color:#fff; font-size:14px; line-height:1.34; text-shadow:0 2px 8px rgba(0,0,0,.6); }
+    .edition-text .line { display:inline-block; margin:0 10px 8px 0; padding:7px 11px; border-radius:999px; background:rgba(0,0,0,.44); border:1px solid rgba(255,255,255,.18); backdrop-filter: blur(2px); }
+
+    @media (max-width:900px) {
+      .nav { display:none; }
+      .hero { right:10px; bottom:10px; width:min(42vw,180px); height:min(42vh,280px); }
+      .edition-text { left:12px; right:12px; bottom:10px; font-size:12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Archive Danseruna</h1>
+    <div class="sub">Clique une affiche pour ouvrir une composition photo.</div>
+    <div class="carousel-shell">
+      <button class="nav left" id="leftBtn" aria-label="Précédent">&#8249;</button>
+      <div class="carousel" id="carousel"></div>
+      <button class="nav right" id="rightBtn" aria-label="Suivant">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="stage" id="stage">
+      <button class="close" id="closeBtn">Fermer</button>
+      <div class="label" id="label"></div>
+      <div class="edition-text" id="editionText"></div>
+      <div class="collage" id="collage"></div>
+      <div class="hero" id="hero"></div>
+    </div>
+  </div>
+
+  <script>
+    const editions = [{"year": 2025, "edition": 8, "folder": "2025_edition_08", "title": "Danseruna #8 (2025)", "poster": "../archive_danseruna_scrape/2025_edition_08/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2025_edition_08/images/img_001.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_002.png", "../archive_danseruna_scrape/2025_edition_08/images/img_003.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_004.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_005.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_006.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_007.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_008.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_009.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_010.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_011.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_012.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_013.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_014.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_015.jpg", "../archive_danseruna_scrape/2025_edition_08/images/Thumbs.db"]}, {"year": 2024, "edition": 7, "folder": "2024_edition_07", "title": "Danseruna #7 (2024)", "poster": "../archive_danseruna_scrape/2024_edition_07/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2024_edition_07/images/img_001.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_002.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_003.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_004.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_005.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_006.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_007.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_008.png", "../archive_danseruna_scrape/2024_edition_07/images/img_009.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_010.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_011.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_012.png", "../archive_danseruna_scrape/2024_edition_07/images/img_013.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_014.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_015.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_016.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_017.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_018.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_019.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_020.jpg"]}, {"year": 2023, "edition": 6, "folder": "2023_edition_06", "title": "Danseruna #6 (2023)", "poster": "../archive_danseruna_scrape/2023_edition_06/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2023_edition_06/images/img_001.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_002.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_003.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_004.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_005.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_006.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_007.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_008.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_009.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_010.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_011.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_012.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_013.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_014.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_015.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_016.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_017.jpg"]}, {"year": 2022, "edition": 5, "folder": "2022_edition_05", "title": "Danseruna #5 (2022)", "poster": "../archive_danseruna_scrape/2022_edition_05/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2022_edition_05/images/img_001.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_002.png", "../archive_danseruna_scrape/2022_edition_05/images/img_003.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_004.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_005.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_006.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_007.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_008.png", "../archive_danseruna_scrape/2022_edition_05/images/img_009.png", "../archive_danseruna_scrape/2022_edition_05/images/img_010.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_011.png", "../archive_danseruna_scrape/2022_edition_05/images/img_012.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_013.png", "../archive_danseruna_scrape/2022_edition_05/images/img_014.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_015.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_016.png", "../archive_danseruna_scrape/2022_edition_05/images/img_017.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_018.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_019.jpg"]}, {"year": 2021, "edition": 4, "folder": "2021_edition_04", "title": "Danseruna #4 (2021)", "poster": "../archive_danseruna_scrape/2021_edition_04/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2021_edition_04/images/img_001.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_002.png", "../archive_danseruna_scrape/2021_edition_04/images/img_003.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_004.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_005.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_006.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_007.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_008.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_009.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_010.png", "../archive_danseruna_scrape/2021_edition_04/images/img_011.png", "../archive_danseruna_scrape/2021_edition_04/images/img_012.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_013.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_014.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_015.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_016.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_017.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_018.png", "../archive_danseruna_scrape/2021_edition_04/images/img_019.jpg"]}, {"year": 2020, "edition": 3, "folder": "2020_edition_03", "title": "Danseruna #3 (2020)", "poster": "../archive_danseruna_scrape/2020_edition_03/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2020_edition_03/images/img_001.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_002.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_003.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_004.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_005.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_006.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_007.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_008.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_009.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_010.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_011.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_012.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_013.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_014.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_015.png", "../archive_danseruna_scrape/2020_edition_03/images/img_016.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_017.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_018.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_019.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_020.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_021.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_022.jpg"]}, {"year": 2019, "edition": 2, "folder": "2019_edition_02", "title": "Danseruna #2 (2019)", "poster": "../archive_danseruna_scrape/2019_edition_02/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2019_edition_02/images/img_001.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_002.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_003.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_004.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_005.png", "../archive_danseruna_scrape/2019_edition_02/images/img_006.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_007.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_008.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_009.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_010.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_011.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_012.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_013.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_014.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_015.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_016.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_017.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_018.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_019.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_020.jpg"]}, {"year": 2018, "edition": 1, "folder": "2018_edition_01", "title": "Danseruna #1 (2018)", "poster": null, "images": []}];
+
+    const carousel = document.getElementById('carousel');
+    const modal = document.getElementById('modal');
+    const collage = document.getElementById('collage');
+    const hero = document.getElementById('hero');
+    const label = document.getElementById('label');
+    const editionText = document.getElementById('editionText');
+    let motionRaf = null;
+    let tileStates = [];
+    const editionCopy = {
+      "2025_edition_08": ["Passeuses de danse: Eva Yufra, Emeline N'Guyen, Marion Delaval, Anne Mutuel", "Meute des musicien-ne-s: Cécric Pierini, Gaspar Pocaï, Julien Blondel, Lola Calvet", "Organisation: Kézia, Marjorie, Adrien, Pascal"],
+      "2024_edition_07": ["Passeuses de danse: Leïlani Weis, Emeline N'Guyen, Marion Delaval, Anne Mutuel", "Meute des musicien-ne-s: Jean Loup Perry, Akram Chaib, Juri Cainero, Neda Cainero", "Organisation: Adrien, Kézia, Marjorie, Pascal"],
+      "2023_edition_06": ["Passeurs de danse: Bastien Auber, Delphine Lafoix, Anatole Lorne, Anne Mutuel", "Musicien-ne-s: Aina Tulier, Alisa Vasylkova, Anne Piffard, Gaspar Pocai", "Organisation: Adrien, Marjorie, Pascal, Kézia"],
+      "2022_edition_05": ["PASSEURS DE DANSE: Robin Decourcy, Laure Fourest, Anatole Lorne, Aurore Simon", "MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras", "Organisation: Marjorie, Adrien, Baptiste, Kézia"],
+      "2021_edition_04": ["ENSEIGNANTS: Robin Decourcy, Amanda Mahieux, Aurore Simon, Remy Tatard", "MUSICIENS: Remi Geffroy, Anne Piffard, Romain De Mesmay, Laurent Gehant", "Organisation: Marjorie, Adrien, Baptiste, Kézia"],
+      "2020_edition_03": ["ENSEIGNANTS: Stéphanie Auberville, Laure Fourest, Laurent Gibeaux, Anatole Lorne", "MUSICIENS: Hélène Duret, Corentin Coko, Titouan Billon, Jean-Pierre Sarzier", "Organisateurs: Gioras, Kézia, Marjorie, Coko"],
+      "2019_edition_02": ["Enseignants: Mathieu Maisonneuve, Guilhem Hérinx, Bastien Auber, Mathilde Duclaux", "Musiciens: Laurent Cavalié, Jérémy Champagne, Guilhem Verger, Elisa Trébouville", "Organisateurs: Gioras, Kézia, Marjorie, Coko"]
+    };
+
+    function cardTemplate(ed) {
+      const hasPoster = !!ed.poster;
+      const count = ed.images.length;
+      return `<article class="card" data-folder="${ed.folder}" ${hasPoster ? '' : 'style="opacity:.55;pointer-events:none"'}>
+        ${hasPoster ? `<img src="${ed.poster}" alt="${ed.title}">` : `<div style="aspect-ratio:3/4;display:grid;place-items:center;background:#222">Pas d'image</div>`}
+        <div class="meta"><b>${ed.year || ''}</b><div>${ed.title}</div><small>${count} photos</small></div>
+      </article>`;
+    }
+
+    carousel.innerHTML = editions.map(cardTemplate).join('');
+
+    function rng(seed) {
+      let t = seed + 0x6D2B79F5;
+      return function() {
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function openComposition(ed) {
+      if (motionRaf) cancelAnimationFrame(motionRaf);
+      tileStates = [];
+      label.textContent = ed.title;
+      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}">` : '';
+      editionText.innerHTML = (editionCopy[ed.folder] || []).map((line) => `<span class="line">${line}</span>`).join('');
+      collage.innerHTML = '';
+
+      const photos = ed.images.filter((src) => /\.(jpg|jpeg|png|webp)$/i.test(src)).slice(1, 15);
+      const rand = rng((ed.edition || 1) * 997 + (ed.year || 0));
+      const cW = (collage.clientWidth || 980);
+      const cH = (collage.clientHeight || 640);
+      const placed = [];
+      const avoidPosterColumn = {
+        x: Math.max(0, cW - Math.min(260, Math.floor(cW * 0.27)) - 14),
+        y: Math.max(0, cH - Math.min(380, Math.floor(cH * 0.52)) - 14),
+        w: Math.min(260, Math.floor(cW * 0.27)),
+        h: Math.min(380, Math.floor(cH * 0.52))
+      };
+
+      photos.forEach((src, i) => {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        const w = 118 + Math.floor(rand() * 128);
+        const h = 90 + Math.floor(rand() * 116);
+        let x = 0;
+        let y = 0;
+        let found = false;
+        for (let tries = 0; tries < 60; tries += 1) {
+          x = Math.floor(rand() * Math.max(40, cW - w - 8));
+          y = Math.floor(rand() * Math.max(40, cH - h - 8));
+          const overlapX = x < avoidPosterColumn.x + avoidPosterColumn.w && x + w > avoidPosterColumn.x;
+          const overlapY = y < avoidPosterColumn.y + avoidPosterColumn.h && y + h > avoidPosterColumn.y;
+          if (overlapX && overlapY) continue;
+
+          // Keep images more separated: reject strong overlaps with already placed tiles.
+          const pad = 40;
+          const tooMuchOverlap = placed.some((r) => {
+            const ax1 = x - pad;
+            const ay1 = y - pad;
+            const ax2 = x + w + pad;
+            const ay2 = y + h + pad;
+            const bx1 = r.x;
+            const by1 = r.y;
+            const bx2 = r.x + r.w;
+            const by2 = r.y + r.h;
+            return ax1 < bx2 && ax2 > bx1 && ay1 < by2 && ay2 > by1;
+          });
+          if (tooMuchOverlap) continue;
+          found = true;
+          break;
+        }
+        if (!found) {
+          // fallback: fill remaining free space with smaller tile
+          const fw = Math.max(88, Math.floor(w * 0.70));
+          const fh = Math.max(76, Math.floor(h * 0.70));
+          x = Math.floor(rand() * Math.max(30, cW - fw - 8));
+          y = Math.floor(rand() * Math.max(30, cH - fh - 8));
+        }
+        const rot = -10 + rand() * 20;
+        const va = (rand() < 0.5 ? -1 : 1) * (0.02 + rand() * 0.05);
+        const speed = 0.35 + rand() * 0.55;
+        const op = 0.38 + rand() * 0.42;
+        tile.style.cssText = `width:${w}px;height:${h}px;left:${x}px;top:${y}px;opacity:${op};z-index:${1 + (i % 2)};transform:rotate(${rot}deg);`;
+        tile.innerHTML = `<img src="${src}" alt="photo archive">`;
+        collage.appendChild(tile);
+        placed.push({ x, y, w, h });
+        tileStates.push({ el: tile, x, y, w, h, a: rot, va, speed, tx: x, ty: y });
+      });
+
+      function pickTarget(t) {
+        for (let tries = 0; tries < 40; tries += 1) {
+          const tx = Math.floor(rand() * Math.max(40, cW - t.w - 8));
+          const ty = Math.floor(rand() * Math.max(40, cH - t.h - 8));
+          const overlapX = tx < avoidPosterColumn.x + avoidPosterColumn.w && tx + t.w > avoidPosterColumn.x;
+          const overlapY = ty < avoidPosterColumn.y + avoidPosterColumn.h && ty + t.h > avoidPosterColumn.y;
+          // Soft avoidance only: allow slight overlap, avoid deep stay.
+          if (overlapX && overlapY && tx < avoidPosterColumn.w * 0.75) continue;
+          t.tx = tx;
+          t.ty = ty;
+          return;
+        }
+        t.tx = Math.floor(rand() * Math.max(40, cW - t.w - 8));
+        t.ty = Math.floor(rand() * Math.max(40, cH - t.h - 8));
+      }
+
+      tileStates.forEach(pickTarget);
+
+      function animateTiles() {
+        if (!modal.classList.contains('open')) return;
+        for (const t of tileStates) {
+          const dx = t.tx - t.x;
+          const dy = t.ty - t.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 10) {
+            pickTarget(t);
+          } else {
+            const step = Math.min(t.speed, dist);
+            t.x += (dx / dist) * step;
+            t.y += (dy / dist) * step;
+          }
+          t.a += t.va;
+          t.el.style.left = `${t.x}px`;
+          t.el.style.top = `${t.y}px`;
+          t.el.style.transform = `rotate(${t.a.toFixed(2)}deg)`;
+        }
+        motionRaf = requestAnimationFrame(animateTiles);
+      }
+      modal.classList.add('open');
+      motionRaf = requestAnimationFrame(animateTiles);
+    }
+
+    carousel.querySelectorAll('.card').forEach((card, idx) => {
+      card.addEventListener('click', () => openComposition(editions[idx]));
+    });
+
+    document.getElementById('closeBtn').addEventListener('click', () => { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); });
+    modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); } });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); } });
+
+    const by = () => Math.min(360, Math.floor(window.innerWidth * 0.65));
+    document.getElementById('leftBtn').addEventListener('click', () => carousel.scrollBy({ left: -by(), behavior:'smooth' }));
+    document.getElementById('rightBtn').addEventListener('click', () => carousel.scrollBy({ left: by(), behavior:'smooth' }));
+  </script>
+</body>
+</html>
