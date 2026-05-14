@@ -58,7 +58,21 @@
     .hero-nav.next { right:-22px; }
 
     .label { position:absolute; left:16px; top:14px; background:var(--accent); color:#121212; font-weight:800; padding:8px 12px; border-radius:999px; z-index:3; }
-    .close { position:absolute; right:12px; top:10px; border:0; background:#111; color:#fff; border-radius:10px; padding:8px 10px; cursor:pointer; z-index:3; }
+    .close {
+      position:absolute;
+      right:12px;
+      top:10px;
+      border:1px solid rgba(255,233,77,.85);
+      background:rgba(0,0,0,.82);
+      color:#ffe94d;
+      border-radius:999px;
+      padding:8px 12px;
+      font-weight:800;
+      cursor:pointer;
+      z-index:3;
+      box-shadow:0 8px 18px rgba(0,0,0,.35);
+    }
+    .close:hover { background:rgba(255,233,77,.12); }
     .edition-text { position:absolute; left:18px; right:44%; bottom:16px; z-index:4; color:#fff; font-size:14px; line-height:1.34; text-shadow:0 2px 8px rgba(0,0,0,.6); }
     .edition-text .line { display:inline-block; margin:0 10px 8px 0; padding:7px 11px; border-radius:999px; background:rgba(0,0,0,.44); border:1px solid rgba(255,255,255,.18); backdrop-filter: blur(2px); }
 
@@ -70,6 +84,11 @@
       .hero-nav.next { right:-20px; }
       .edition-text { left:12px; right:12px; bottom:10px; font-size:12px; }
     }
+
+    body.direct { background: transparent; }
+    body.direct .wrap { display: none; }
+    body.direct .modal { position: fixed; inset: 0; display: flex; background: transparent; backdrop-filter: none; }
+    body.direct .stage { width: 100vw; height: 100vh; max-width: none; max-height: none; border-radius: 0; border: 0; }
   </style>
 </head>
 <body>
@@ -99,6 +118,12 @@
 
   <script>
     const editions = [{"year": 2025, "edition": 8, "folder": "2025_edition_08", "title": "Danseruna #8 (2025)", "poster": "../archive_danseruna_scrape/2025_edition_08/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2025_edition_08/images/img_001.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_002.png", "../archive_danseruna_scrape/2025_edition_08/images/img_003.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_004.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_005.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_006.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_007.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_008.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_009.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_010.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_011.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_012.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_013.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_014.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_015.jpg", "../archive_danseruna_scrape/2025_edition_08/images/Thumbs.db"]}, {"year": 2024, "edition": 7, "folder": "2024_edition_07", "title": "Danseruna #7 (2024)", "poster": "../archive_danseruna_scrape/2024_edition_07/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2024_edition_07/images/img_001.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_002.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_003.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_004.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_005.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_006.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_007.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_008.png", "../archive_danseruna_scrape/2024_edition_07/images/img_009.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_010.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_011.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_012.png", "../archive_danseruna_scrape/2024_edition_07/images/img_013.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_014.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_015.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_016.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_017.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_018.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_019.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_020.jpg"]}, {"year": 2023, "edition": 6, "folder": "2023_edition_06", "title": "Danseruna #6 (2023)", "poster": "../archive_danseruna_scrape/2023_edition_06/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2023_edition_06/images/img_001.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_002.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_003.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_004.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_005.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_006.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_007.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_008.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_009.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_010.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_011.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_012.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_013.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_014.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_015.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_016.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_017.jpg"]}, {"year": 2022, "edition": 5, "folder": "2022_edition_05", "title": "Danseruna #5 (2022)", "poster": "../archive_danseruna_scrape/2022_edition_05/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2022_edition_05/images/img_001.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_002.png", "../archive_danseruna_scrape/2022_edition_05/images/img_003.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_004.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_005.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_006.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_007.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_008.png", "../archive_danseruna_scrape/2022_edition_05/images/img_009.png", "../archive_danseruna_scrape/2022_edition_05/images/img_010.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_011.png", "../archive_danseruna_scrape/2022_edition_05/images/img_012.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_013.png", "../archive_danseruna_scrape/2022_edition_05/images/img_014.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_015.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_016.png", "../archive_danseruna_scrape/2022_edition_05/images/img_017.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_018.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_019.jpg"]}, {"year": 2021, "edition": 4, "folder": "2021_edition_04", "title": "Danseruna #4 (2021)", "poster": "../archive_danseruna_scrape/2021_edition_04/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2021_edition_04/images/img_001.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_002.png", "../archive_danseruna_scrape/2021_edition_04/images/img_003.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_004.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_005.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_006.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_007.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_008.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_009.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_010.png", "../archive_danseruna_scrape/2021_edition_04/images/img_011.png", "../archive_danseruna_scrape/2021_edition_04/images/img_012.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_013.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_014.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_015.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_016.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_017.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_018.png", "../archive_danseruna_scrape/2021_edition_04/images/img_019.jpg"]}, {"year": 2020, "edition": 3, "folder": "2020_edition_03", "title": "Danseruna #3 (2020)", "poster": "../archive_danseruna_scrape/2020_edition_03/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2020_edition_03/images/img_001.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_002.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_003.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_004.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_005.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_006.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_007.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_008.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_009.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_010.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_011.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_012.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_013.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_014.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_015.png", "../archive_danseruna_scrape/2020_edition_03/images/img_016.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_017.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_018.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_019.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_020.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_021.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_022.jpg"]}, {"year": 2019, "edition": 2, "folder": "2019_edition_02", "title": "Danseruna #2 (2019)", "poster": "../archive_danseruna_scrape/2019_edition_02/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2019_edition_02/images/img_001.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_002.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_003.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_004.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_005.png", "../archive_danseruna_scrape/2019_edition_02/images/img_006.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_007.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_008.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_009.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_010.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_011.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_012.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_013.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_014.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_015.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_016.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_017.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_018.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_019.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_020.jpg"]}, {"year": 2018, "edition": 1, "folder": "2018_edition_01", "title": "Danseruna #1 (2018)", "poster": null, "images": []}];
+
+    const params = new URLSearchParams(window.location.search);
+    const directMode = params.get('direct') === '1';
+    const requestedEdition = Number(params.get('edition'));
+    const requestedEditionNum = Number.isFinite(requestedEdition) ? requestedEdition : null;
+    if (directMode) document.body.classList.add('direct');
 
     const carousel = document.getElementById('carousel');
     const modal = document.getElementById('modal');
@@ -305,13 +330,27 @@
       openComposition(editions[nextIndex], nextIndex);
     });
 
-    document.getElementById('closeBtn').addEventListener('click', () => { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); });
+    document.getElementById('closeBtn').addEventListener('click', () => {
+      modal.classList.remove('open');
+      if (motionRaf) cancelAnimationFrame(motionRaf);
+      if (directMode && window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'danseruna-archive-close' }, '*');
+      }
+    });
     modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); } });
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); } });
 
     const by = () => Math.min(360, Math.floor(window.innerWidth * 0.65));
     document.getElementById('leftBtn').addEventListener('click', () => carousel.scrollBy({ left: -by(), behavior:'smooth' }));
     document.getElementById('rightBtn').addEventListener('click', () => carousel.scrollBy({ left: by(), behavior:'smooth' }));
+
+    if (directMode) {
+      const idx = requestedEditionNum !== null
+        ? Math.max(0, editions.findIndex((ed) => ed.edition === requestedEditionNum))
+        : 0;
+      const startIndex = idx < 0 ? 0 : idx;
+      openComposition(editions[startIndex], startIndex);
+    }
   </script>
 </body>
 </html>

@@ -107,6 +107,10 @@
     .modal-card { width: min(560px, 100%); background: #111; border: 1px solid #444; border-radius: 14px; padding: 20px; }
     .modal-card h2 { margin-top: 0; }
     .close-btn { margin-top: 12px; border: 0; border-radius: 8px; background: #ffe94d; color: #000; padding: 10px 14px; font-weight: 700; cursor: pointer; }
+    .archive-modal { position: fixed; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(2px); display: none; align-items: center; justify-content: center; z-index: 120; padding: 16px; }
+    .archive-modal.open { display: flex; }
+    .archive-modal-card { position: relative; width: min(980px, 84vw); height: min(78vh, 760px); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.18); background: #000; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
+    .archive-frame { width: 100%; height: 100%; border: 0; display: block; background: #000; }
 
 
     @media (orientation: landscape) {
@@ -164,7 +168,7 @@
       <span class="tag">ATELIERS - PEDAGOGIE</span>
     </section>
 
-    <section class="zone" data-mode="modal" data-title="DANSERUNA" data-text="Texte explicatif du festival">
+    <section class="zone" data-mode="archive" data-title="DANSERUNA" data-text="Texte explicatif du festival">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Titre-transparent.png" alt="">
       <button class="hotspot" style="left:7.8125%;top:3.0555%;width:85.3125%;height:8.0092%; --rr: 49% 51% 57% 43% / 42% 58% 49% 51%; --rr-a: 49% 51% 57% 43% / 42% 58% 49% 51%; --rr-b: 67% 33% 62% 38% / 31% 69% 43% 57%; --rr-c: 31% 69% 34% 66% / 75% 25% 64% 36%;" aria-label="DANSERUNA"></button>
       <span class="tag">DANSERUNA</span>
@@ -178,6 +182,11 @@
       <button class="close-btn" id="closeModal" type="button">Fermer</button>
     </div>
   </div>
+  <div class="archive-modal" id="archiveModal" role="dialog" aria-modal="true" aria-label="Archive Danseruna">
+    <div class="archive-modal-card">
+      <iframe class="archive-frame" id="archiveFrame" src="" title="Archive Danseruna"></iframe>
+    </div>
+  </div>
 
   <script>
     const zones = document.querySelectorAll('.zone');
@@ -185,6 +194,9 @@
     const modalTitle = document.getElementById('modal-title');
     const modalText = document.getElementById('modal-text');
     const closeModal = document.getElementById('closeModal');
+    const archiveModal = document.getElementById('archiveModal');
+    const archiveFrame = document.getElementById('archiveFrame');
+    const archiveBaseUrl = 'pages/archive-danseruna.html?direct=1&edition=8';
     const scene = document.getElementById('scene');
     let lockedZone = null;
     let layoutRaf = null;
@@ -236,6 +248,10 @@
           modalTitle.textContent = zone.dataset.title || 'Info';
           modalText.textContent = zone.dataset.text || '';
           modal.classList.add('open');
+        } else if (mode === 'archive') {
+          const refreshUrl = `${archiveBaseUrl}&t=${Date.now()}`;
+          archiveFrame.setAttribute('src', refreshUrl);
+          archiveModal.classList.add('open');
         }
       });
     });
@@ -288,9 +304,22 @@
 
     closeModal.addEventListener('click', () => { modal.classList.remove('open'); unlockZone(); });
     modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('open'); unlockZone(); } });
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { modal.classList.remove('open'); unlockZone(); } });
+    archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) { archiveModal.classList.remove('open'); unlockZone(); } });
+    window.addEventListener('message', (e) => {
+      if (e && e.data && e.data.type === 'danseruna-archive-close') {
+        archiveModal.classList.remove('open');
+        unlockZone();
+      }
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('open');
+        archiveModal.classList.remove('open');
+        unlockZone();
+      }
+    });
     scene.addEventListener('click', (e) => {
-      if (!e.target.closest('.hotspot') && !modal.classList.contains('open')) unlockZone();
+      if (!e.target.closest('.hotspot') && !modal.classList.contains('open') && !archiveModal.classList.contains('open')) unlockZone();
     });
 
     // Initial pass after first paint.
