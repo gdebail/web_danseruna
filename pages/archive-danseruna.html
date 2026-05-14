@@ -274,7 +274,51 @@
         tile.innerHTML = `<img src="${src}" alt="photo archive">`;
         collage.appendChild(tile);
         placed.push({ x, y, w, h });
-        tileStates.push({ el: tile, x, y, w, h, a: rot, va, speed, tx: x, ty: y });
+        const state = { el: tile, x, y, w, h, a: rot, va, speed, tx: x, ty: y };
+        tileStates.push(state);
+
+        const imgEl = tile.querySelector('img');
+        if (imgEl) {
+          imgEl.addEventListener('load', () => {
+            const nw = imgEl.naturalWidth || 0;
+            const nh = imgEl.naturalHeight || 0;
+            if (!nw || !nh) return;
+            const ratio = nw / nh;
+            const area = state.w * state.h;
+            let newW = state.w;
+            let newH = state.h;
+
+            // Fit tile geometry to real photo orientation to avoid portrait frame on landscape photo (and inverse).
+            if (ratio >= 1.15) {
+              newW = Math.sqrt(area * ratio);
+              newH = newW / ratio;
+            } else if (ratio <= 0.85) {
+              newH = Math.sqrt(area / ratio);
+              newW = newH * ratio;
+            } else {
+              const edge = Math.sqrt(area);
+              newW = edge;
+              newH = edge;
+            }
+
+            newW = Math.max(96, Math.min(280, newW));
+            newH = Math.max(76, Math.min(280, newH));
+
+            state.w = newW;
+            state.h = newH;
+            tile.style.width = `${newW}px`;
+            tile.style.height = `${newH}px`;
+
+            const maxX = Math.max(0, cW - newW - 8);
+            const maxY = Math.max(0, cH - newH - 8);
+            state.x = Math.min(maxX, Math.max(0, state.x));
+            state.y = Math.min(maxY, Math.max(0, state.y));
+            state.tx = Math.min(maxX, Math.max(0, state.tx));
+            state.ty = Math.min(maxY, Math.max(0, state.ty));
+            tile.style.left = `${state.x}px`;
+            tile.style.top = `${state.y}px`;
+          }, { once: true });
+        }
       });
 
       function pickTarget(t) {
