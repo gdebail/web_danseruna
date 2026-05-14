@@ -102,6 +102,21 @@
     .modal-card { width: min(560px, 100%); background: #111; border: 1px solid #444; border-radius: 14px; padding: 20px; }
     .modal-card h2 { margin-top: 0; }
     .close-btn { margin-top: 12px; border: 0; border-radius: 8px; background: #ffe94d; color: #000; padding: 10px 14px; font-weight: 700; cursor: pointer; }
+
+
+    @media (orientation: landscape) {
+      .scene {
+        width: min(92vw, 720px);
+        height: auto;
+        aspect-ratio: 1920 / 4320;
+      }
+      .base,
+      .overlay {
+        object-fit: cover;
+        object-position: 50% 50%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -167,6 +182,7 @@
     const closeModal = document.getElementById('closeModal');
     const scene = document.getElementById('scene');
     let lockedZone = null;
+    let layoutRaf = null;
 
     function placeTag(zone) {
       const hotspot = zone.querySelector('.hotspot');
@@ -223,12 +239,40 @@
       document.querySelectorAll('.zone.active').forEach(placeTag);
     });
 
+    function refreshSceneLayout() {
+      // Force reflow so percentage-based hotspot boxes follow the final viewport size.
+      scene.getBoundingClientRect();
+      document.querySelectorAll('.zone.active').forEach(placeTag);
+    }
+
+    function scheduleLayoutRefresh() {
+      if (layoutRaf) cancelAnimationFrame(layoutRaf);
+      layoutRaf = requestAnimationFrame(() => {
+        refreshSceneLayout();
+        setTimeout(refreshSceneLayout, 120);
+        setTimeout(refreshSceneLayout, 320);
+      });
+    }
+
+    window.addEventListener('orientationchange', scheduleLayoutRefresh);
+    window.addEventListener('orientationchange', () => {
+      // iOS Safari can keep stale layout metrics after rotation; hard reload fixes hotspot alignment.
+      setTimeout(() => window.location.reload(), 180);
+    });
+    window.addEventListener('pageshow', scheduleLayoutRefresh);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', scheduleLayoutRefresh);
+    }
+
     closeModal.addEventListener('click', () => { modal.classList.remove('open'); unlockZone(); });
     modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('open'); unlockZone(); } });
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { modal.classList.remove('open'); unlockZone(); } });
     scene.addEventListener('click', (e) => {
       if (!e.target.closest('.hotspot') && !modal.classList.contains('open')) unlockZone();
     });
+
+    // Initial pass after first paint.
+    scheduleLayoutRefresh();
   </script>
 </body>
 </html>
