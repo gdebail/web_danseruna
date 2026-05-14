@@ -5,6 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Danseruna</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <style>
     :root { --bg:#050505; --label:#ffe94d; --label-text:#111; }
     * { box-sizing: border-box; }
@@ -154,10 +158,10 @@
       <span class="tag">LA MEMBRANE</span>
     </section>
 
-    <section class="zone" data-mode="modal" data-title="LES ATELIERS - PEDAGOGIE" data-text="LES ATELIERS - PEDAGOGIE">
+    <section class="zone" data-mode="modal" data-title="ATELIERS - PEDAGOGIE" data-text="ATELIERS - PEDAGOGIE">
       <img class="overlay" src="FOND-SITE-DANSERUNA-Squelette-transparent.png" alt="">
       <button class="hotspot" style="left:70.2083%;top:65.4629%;width:17.5000%;height:15.9028%; --rr: 52% 48% 41% 59% / 59% 41% 63% 37%; --rr-a: 52% 48% 41% 59% / 59% 41% 63% 37%; --rr-b: 69% 31% 57% 43% / 34% 66% 74% 26%; --rr-c: 33% 67% 27% 73% / 76% 24% 58% 42%;" aria-label="SQUELETTE"></button>
-      <span class="tag">LES ATELIERS - PEDAGOGIE</span>
+      <span class="tag">ATELIERS - PEDAGOGIE</span>
     </section>
 
     <section class="zone" data-mode="modal" data-title="DANSERUNA" data-text="Texte explicatif du festival">
