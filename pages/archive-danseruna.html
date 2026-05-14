@@ -35,6 +35,27 @@
 
     .hero { position:absolute; right:18px; bottom:18px; width:min(22vw,240px); height:min(46vh,360px); border-radius:12px; overflow:hidden; border:0; box-shadow:0 16px 36px rgba(0,0,0,.55); z-index:4; background:#0a0a0a; }
     .hero img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
+    .hero-nav-wrap { position:absolute; right:18px; bottom:18px; width:min(22vw,240px); height:min(46vh,360px); z-index:6; pointer-events:none; }
+    .hero-nav {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      border:1px solid rgba(255,233,77,.55);
+      background:rgba(0,0,0,.74);
+      color:#ffe94d;
+      font-size:28px;
+      line-height:1;
+      font-weight:700;
+      cursor:pointer;
+      pointer-events:auto;
+      display:grid;
+      place-items:center;
+    }
+    .hero-nav.prev { left:-22px; }
+    .hero-nav.next { right:-22px; }
 
     .label { position:absolute; left:16px; top:14px; background:var(--accent); color:#121212; font-weight:800; padding:8px 12px; border-radius:999px; z-index:3; }
     .close { position:absolute; right:12px; top:10px; border:0; background:#111; color:#fff; border-radius:10px; padding:8px 10px; cursor:pointer; z-index:3; }
@@ -44,6 +65,9 @@
     @media (max-width:900px) {
       .nav { display:none; }
       .hero { right:10px; bottom:10px; width:min(42vw,180px); height:min(42vh,280px); }
+      .hero-nav-wrap { right:10px; bottom:10px; width:min(42vw,180px); height:min(42vh,280px); }
+      .hero-nav.prev { left:-20px; }
+      .hero-nav.next { right:-20px; }
       .edition-text { left:12px; right:12px; bottom:10px; font-size:12px; }
     }
   </style>
@@ -66,6 +90,10 @@
       <div class="edition-text" id="editionText"></div>
       <div class="collage" id="collage"></div>
       <div class="hero" id="hero"></div>
+      <div class="hero-nav-wrap">
+        <button class="hero-nav prev" id="modalPrevBtn" aria-label="Edition précédente">&#8249;</button>
+        <button class="hero-nav next" id="modalNextBtn" aria-label="Edition suivante">&#8250;</button>
+      </div>
     </div>
   </div>
 
@@ -78,17 +106,52 @@
     const hero = document.getElementById('hero');
     const label = document.getElementById('label');
     const editionText = document.getElementById('editionText');
+    const modalPrevBtn = document.getElementById('modalPrevBtn');
+    const modalNextBtn = document.getElementById('modalNextBtn');
     let motionRaf = null;
     let tileStates = [];
+    let currentEditionIndex = 0;
     const editionCopy = {
-      "2025_edition_08": ["Passeuses de danse: Eva Yufra, Emeline N'Guyen, Marion Delaval, Anne Mutuel", "Meute des musicien-ne-s: Cécric Pierini, Gaspar Pocaï, Julien Blondel, Lola Calvet", "Organisation: Kézia, Marjorie, Adrien, Pascal"],
-      "2024_edition_07": ["Passeuses de danse: Leïlani Weis, Emeline N'Guyen, Marion Delaval, Anne Mutuel", "Meute des musicien-ne-s: Jean Loup Perry, Akram Chaib, Juri Cainero, Neda Cainero", "Organisation: Adrien, Kézia, Marjorie, Pascal"],
-      "2023_edition_06": ["Passeurs de danse: Bastien Auber, Delphine Lafoix, Anatole Lorne, Anne Mutuel", "Musicien-ne-s: Aina Tulier, Alisa Vasylkova, Anne Piffard, Gaspar Pocai", "Organisation: Adrien, Marjorie, Pascal, Kézia"],
-      "2022_edition_05": ["PASSEURS DE DANSE: Robin Decourcy, Laure Fourest, Anatole Lorne, Aurore Simon", "MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras", "Organisation: Marjorie, Adrien, Baptiste, Kézia"],
-      "2021_edition_04": ["ENSEIGNANTS: Robin Decourcy, Amanda Mahieux, Aurore Simon, Remy Tatard", "MUSICIENS: Remi Geffroy, Anne Piffard, Romain De Mesmay, Laurent Gehant", "Organisation: Marjorie, Adrien, Baptiste, Kézia"],
-      "2020_edition_03": ["ENSEIGNANTS: Stéphanie Auberville, Laure Fourest, Laurent Gibeaux, Anatole Lorne", "MUSICIENS: Hélène Duret, Corentin Coko, Titouan Billon, Jean-Pierre Sarzier", "Organisateurs: Gioras, Kézia, Marjorie, Coko"],
-      "2019_edition_02": ["Enseignants: Mathieu Maisonneuve, Guilhem Hérinx, Bastien Auber, Mathilde Duclaux", "Musiciens: Laurent Cavalié, Jérémy Champagne, Guilhem Verger, Elisa Trébouville", "Organisateurs: Gioras, Kézia, Marjorie, Coko"]
-    };
+      "2018_edition_01": [
+      ],
+      "2019_edition_02": [
+            "Enseignants: Mathieu Maisonneuve (Tango), Guilhem Hérinx (Folk), Bastien Auber (Contact Improvisation), Mathilde Duclaux (Composition instantanée)",
+            "Musiciens: Laurent Cavalié, Jérémy Champagne, Guilhem Verger, Elisa Trébouville, Rémy Tatard, Karine Berny, Corentin Coko, Laeticia Dutech, Jean-Pierre Sarzier, Claire Vincent, François Gozlan, Lionel Banevitch, Bruno Sentou",
+            "ORGANISATEURS: Gioras, Kézia, Marjorie, Coko"
+      ],
+      "2020_edition_03": [
+            "ENSEIGNANTS: Stéphanie Auberville (contact impro), Laure Fourest (Tango), Laurent Gibeaux (composition instantanée),  Anatole Lorne (Folk)",
+            "MUSICIENS: Hélène Duret, Corentin Coko, Titouan Billon, Jean-Pierre Sarzier, Rémy Tatard, Sylvain Raboudin, Adrien Nuguet, Guilhem Verger, Vanessa Virot, Marion Carrouché, Florent Lalet, Lionel Banevitch, Anne Piffard, Bruno Sentou",
+            "ORGANISATEURS: Gioras, Kézia, Marjorie, Coko"
+      ],
+      "2021_edition_04": [
+            "ENSEIGNANTS: Robin Decourcy (composition instantanée),  Amanda Mahieux (folk),  Aurore Simon (contact impro),  Remy Tatard (tango)",
+            "MUSICIENS: Remi Geffroy, Anne Piffard, Romain De Mesmay, Laurent Gehant, Sophie Azambre Le Roy, Jonathan Balmefrezol, Julia Mondon, Camille Secheppet, Fawzi Berger, Leila Zitouni, Jérémie Couraut, Agathe Pitarch, Julien Lameiras",
+            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia",
+            "(David... notre technicien son lumière)"
+      ],
+      "2022_edition_05": [
+            "PASSEURS DE DANSE: Robin Decourcy (composition instantanée), Laure Fourest (tango), Anatole Lorne (folk), Aurore Simon (contact impro)",
+            "MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras, Laurent Cavalié, Lior Shoov, Lisa Hervas, Lucie Laigle, Raphaël André, Rolland Martinez, Sophie Azambre Le Roy, Romain De Mesmey, Remy Tatard",
+            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia",
+            "(David... notre technicien son lumière)"
+      ],
+      "2023_edition_06": [
+            "Passeurs de danse: Bastien Auber (contact impro), Delphine Lafoix (tango contact), Anatole Lorne (folk), Anne Mutuel (improvisation)",
+            "Aina Tulier, Alisa Vasylkova, Anne Piffard, Gaspar Pocai, Guilhem Verger, Jean-Loup Perry, Julien Blondel, Sylvain Rabourdin, Juri Cainero, Leïle Zitouni",
+            "ORGANISATION: Adrien, Marjorie, Pascal, Kézia"
+      ],
+      "2024_edition_07": [
+            "Passeuses de danse: Leïlani Weis, Emeline N'Guyen, Marion Delaval, Anne Mutuel",
+            "Meute des musicien-ne-s: Jean Loup Perry, Akram Chaib, Juri Cainero, Neda Cainero, Charlotte Espieussas, Gladys Ventrepotte, Marion Piel, Irepan Mejia Almonte, Florent Manneveau, Laurent Gehan, Gaspar Pouyé",
+            "ORGANISATION: Adrien, Kézia, Marjorie, Pascal"
+      ],
+      "2025_edition_08": [
+            "Passeuses de danse: Eva Yufra, Emeline N'Guyen, Marion Delaval, Anne Mutuel",
+            "Meute des musicien-ne-s: Cécric Pierini, Gaspar Pocaï, Julien Blondel, Lola Calvet, Oriol Martinez, Romane Bandeira Deconfin, Théophile Joubert",
+            "ORGANISATION: Kézia, Marjorie, Adrien, Pascal"
+      ]
+};
 
     function cardTemplate(ed) {
       const hasPoster = !!ed.poster;
@@ -110,7 +173,13 @@
       };
     }
 
-    function openComposition(ed) {
+    function updateModalNav() {
+      modalPrevBtn.style.display = currentEditionIndex <= 0 ? 'none' : 'grid';
+      modalNextBtn.style.display = currentEditionIndex >= editions.length - 1 ? 'none' : 'grid';
+    }
+
+    function openComposition(ed, idx = 0) {
+      currentEditionIndex = idx;
       if (motionRaf) cancelAnimationFrame(motionRaf);
       tileStates = [];
       label.textContent = ed.title;
@@ -219,11 +288,23 @@
         motionRaf = requestAnimationFrame(animateTiles);
       }
       modal.classList.add('open');
+      updateModalNav();
       motionRaf = requestAnimationFrame(animateTiles);
     }
 
     carousel.querySelectorAll('.card').forEach((card, idx) => {
-      card.addEventListener('click', () => openComposition(editions[idx]));
+      card.addEventListener('click', () => openComposition(editions[idx], idx));
+    });
+
+    modalPrevBtn.addEventListener('click', () => {
+      if (currentEditionIndex <= 0) return;
+      const nextIndex = currentEditionIndex - 1;
+      openComposition(editions[nextIndex], nextIndex);
+    });
+    modalNextBtn.addEventListener('click', () => {
+      if (currentEditionIndex >= editions.length - 1) return;
+      const nextIndex = currentEditionIndex + 1;
+      openComposition(editions[nextIndex], nextIndex);
     });
 
     document.getElementById('closeBtn').addEventListener('click', () => { modal.classList.remove('open'); if (motionRaf) cancelAnimationFrame(motionRaf); });

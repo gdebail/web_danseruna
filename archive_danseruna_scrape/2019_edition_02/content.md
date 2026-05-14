@@ -9,7 +9,7 @@
 
 - Enseignants: Mathieu Maisonneuve (Tango), Guilhem Hérinx (Folk), Bastien Auber (Contact Improvisation), Mathilde Duclaux (Composition instantanée)
 - Musiciens: Laurent Cavalié, Jérémy Champagne, Guilhem Verger, Elisa Trébouville, Rémy Tatard, Karine Berny, Corentin Coko, Laeticia Dutech, Jean-Pierre Sarzier, Claire Vincent, François Gozlan, Lionel Banevitch, Bruno Sentou
-- ORGANISATEURS: Gioras/ Kézia/ Marjorie/ Coko
+- ORGANISATEURS: Gioras, Kézia, Marjorie, Coko
 
 ## Image Files
 

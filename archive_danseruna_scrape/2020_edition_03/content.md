@@ -7,9 +7,9 @@
 
 ## Texts
 
-- ENSEIGNANTS: Stéphanie Auberville (contact impro)/ Laure Fourest (Tango) /Laurent Gibeaux (composition instantanée) / Anatole Lorne (Folk)
+- ENSEIGNANTS: Stéphanie Auberville (contact impro), Laure Fourest (Tango), Laurent Gibeaux (composition instantanée),  Anatole Lorne (Folk)
 - MUSICIENS: Hélène Duret, Corentin Coko, Titouan Billon, Jean-Pierre Sarzier, Rémy Tatard, Sylvain Raboudin, Adrien Nuguet, Guilhem Verger, Vanessa Virot, Marion Carrouché, Florent Lalet, Lionel Banevitch, Anne Piffard, Bruno Sentou
-- ORGANISATEURS: Gioras/ Kézia/ Marjorie/ Coko
+- ORGANISATEURS: Gioras, Kézia, Marjorie, Coko
 
 ## Image Files
 

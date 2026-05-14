@@ -7,7 +7,6 @@
 
 ## Texts
 
-- Ce site a été conçu avec Jimdo. Inscrivez-vous gratuitement sur https://fr.jimdo.com
 
 ## Image Files
 
