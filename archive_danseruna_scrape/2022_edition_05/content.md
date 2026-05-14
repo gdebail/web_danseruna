@@ -10,7 +10,6 @@
 - PASSEURS DE DANSE: Robin Decourcy (composition instantanée), Laure Fourest (tango), Anatole Lorne (folk), Aurore Simon (contact impro)
 - MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras, Laurent Cavalié, Lior Shoov, Lisa Hervas, Lucie Laigle, Raphaël André, Rolland Martinez, Sophie Azambre Le Roy, Romain De Mesmey, Remy Tatard
 - ORGANISATION: Marjorie, Adrien, Baptiste, Kézia
-- (David... notre technicien son lumière)
 
 ## Image Files
 

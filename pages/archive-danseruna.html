@@ -127,14 +127,12 @@
       "2021_edition_04": [
             "ENSEIGNANTS: Robin Decourcy (composition instantanée),  Amanda Mahieux (folk),  Aurore Simon (contact impro),  Remy Tatard (tango)",
             "MUSICIENS: Remi Geffroy, Anne Piffard, Romain De Mesmay, Laurent Gehant, Sophie Azambre Le Roy, Jonathan Balmefrezol, Julia Mondon, Camille Secheppet, Fawzi Berger, Leila Zitouni, Jérémie Couraut, Agathe Pitarch, Julien Lameiras",
-            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia",
-            "(David... notre technicien son lumière)"
+            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia"
       ],
       "2022_edition_05": [
             "PASSEURS DE DANSE: Robin Decourcy (composition instantanée), Laure Fourest (tango), Anatole Lorne (folk), Aurore Simon (contact impro)",
             "MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras, Laurent Cavalié, Lior Shoov, Lisa Hervas, Lucie Laigle, Raphaël André, Rolland Martinez, Sophie Azambre Le Roy, Romain De Mesmey, Remy Tatard",
-            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia",
-            "(David... notre technicien son lumière)"
+            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia"
       ],
       "2023_edition_06": [
             "Passeurs de danse: Bastien Auber (contact impro), Delphine Lafoix (tango contact), Anatole Lorne (folk), Anne Mutuel (improvisation)",
@@ -187,7 +185,7 @@
       editionText.innerHTML = (editionCopy[ed.folder] || []).map((line) => `<span class="line">${line}</span>`).join('');
       collage.innerHTML = '';
 
-      const photos = ed.images.filter((src) => /\.(jpg|jpeg|png|webp)$/i.test(src)).slice(1, 15);
+      const photos = ed.images.filter((src) => /\.(jpg|jpeg|png|webp)$/i.test(src) && src !== ed.poster);
       const rand = rng((ed.edition || 1) * 997 + (ed.year || 0));
       const cW = (collage.clientWidth || 980);
       const cH = (collage.clientHeight || 640);

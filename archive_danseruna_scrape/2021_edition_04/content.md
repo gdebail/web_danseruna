@@ -10,7 +10,6 @@
 - ENSEIGNANTS: Robin Decourcy (composition instantanée),  Amanda Mahieux (folk),  Aurore Simon (contact impro),  Remy Tatard (tango)
 - MUSICIENS: Remi Geffroy, Anne Piffard, Romain De Mesmay, Laurent Gehant, Sophie Azambre Le Roy, Jonathan Balmefrezol, Julia Mondon, Camille Secheppet, Fawzi Berger, Leila Zitouni, Jérémie Couraut, Agathe Pitarch, Julien Lameiras
 - ORGANISATION: Marjorie, Adrien, Baptiste, Kézia
-- (David... notre technicien son lumière)
 
 ## Image Files
 
