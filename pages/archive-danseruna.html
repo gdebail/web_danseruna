@@ -56,8 +56,8 @@
       z-index:2;
     }
     .hero .reduce-btn svg {
-      width:18px;
-      height:18px;
+      width:20px;
+      height:20px;
       display:block;
       transform: translateY(1.5px);
     }
@@ -257,7 +257,7 @@
       tileStates = [];
       label.textContent = ed.title;
       stage.classList.remove('poster-zoomed');
-      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="Réduire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
+      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="Réduire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
       editionText.innerHTML = (editionCopy[ed.folder] || []).map((line) => `<span class="line">${line}</span>`).join('');
       collage.innerHTML = '';
 
