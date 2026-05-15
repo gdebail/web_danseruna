@@ -35,7 +35,8 @@
     .tile { background:#050505; }
     .tile img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; filter:saturate(1.05) contrast(1.02); }
 
-    .hero { position:absolute; right:18px; bottom:18px; width:min(22vw,240px); height:min(46vh,360px); border-radius:12px; overflow:hidden; border:0; box-shadow:0 16px 36px rgba(0,0,0,.55); z-index:4; background:#0a0a0a; transition: width .22s ease, height .22s ease, right .22s ease, bottom .22s ease, transform .22s ease; cursor: zoom-in; }
+    .hero { --nav-gutter:46px; position:absolute; right:18px; bottom:18px; width:calc(min(22vw,240px) + (var(--nav-gutter) * 2)); height:min(46vh,360px); border-radius:14px; overflow:visible; border:0; z-index:4; background:rgba(10,10,10,.48); box-shadow:0 16px 36px rgba(0,0,0,.35); transition: width .22s ease, height .22s ease, right .22s ease, bottom .22s ease, transform .22s ease; cursor: zoom-in; }
+    .hero .poster-shell { position:absolute; inset:0 var(--nav-gutter); border-radius:0; overflow:visible; background:transparent; box-shadow:none; }
     .hero img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
     .hero .reduce-btn {
       position:absolute;
@@ -55,14 +56,36 @@
       cursor:pointer;
       z-index:2;
     }
+    .hero .zoom-nav-btn {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      border:2px solid rgba(255,233,77,.9);
+      background:rgba(0,0,0,.82);
+      color:#ffe94d;
+      border-radius:999px;
+      width:44px;
+      height:44px;
+      padding:0;
+      display:grid;
+      place-items:center;
+      font-size:0;
+      cursor:pointer;
+      z-index:2;
+    }
+    .hero .zoom-nav-btn[hidden] { display:none !important; }
+    .hero .zoom-nav-btn.prev { left:8px; }
+    .hero .zoom-nav-btn.next { right:8px; }
+    .hero .zoom-nav-btn svg { width:20px; height:20px; display:block; }
     .hero .reduce-btn svg {
       width:20px;
       height:20px;
       display:block;
       transform: translateY(1.5px);
     }
-    .stage.poster-zoomed .hero { right:50%; bottom:50%; transform:translate(50%,50%); width:min(56vw,620px); height:min(88vh,900px); z-index:8; border-radius:14px; cursor: zoom-out; }
+    .stage.poster-zoomed .hero { --nav-gutter:46px; right:50%; bottom:50%; transform:translate(50%,50%); width:calc(min(56vw,620px) + (var(--nav-gutter) * 2)); height:min(88vh,900px); z-index:8; border-radius:14px; cursor: zoom-out; background:rgba(10,10,10,.48); box-shadow:0 16px 36px rgba(0,0,0,.35); }
     .stage.poster-zoomed .hero .reduce-btn { display:grid; }
+    .hero-nav-wrap { display:none; }
     .stage.poster-zoomed .hero-nav-wrap { display:none; }
     .hero-nav-wrap { position:absolute; right:18px; bottom:18px; width:min(22vw,240px); height:min(46vh,360px); z-index:6; pointer-events:none; }
     .hero-nav {
@@ -115,7 +138,7 @@
 
     @media (max-width:900px) {
       .nav { display:none; }
-      .hero { right:10px; bottom:10px; width:min(42vw,180px); height:min(42vh,280px); }
+      .hero { --nav-gutter:40px; right:10px; bottom:10px; width:calc(min(42vw,180px) + (var(--nav-gutter) * 2)); height:min(42vh,280px); }
       .stage.poster-zoomed .hero { width:min(86vw,520px); height:min(82vh,760px); }
       .hero-nav-wrap { right:10px; bottom:10px; width:min(42vw,180px); height:min(42vh,280px); }
       .hero-nav.prev { left:-20px; }
@@ -271,7 +294,12 @@ function cardTemplate(ed) {
       tileStates = [];
       label.textContent = ed.title;
       stage.classList.remove('poster-zoomed');
-      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="Réduire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
+      const showPrev = idx > 0;
+      const showNext = idx < editions.length - 1;
+      hero.innerHTML = ed.poster ? `<div class="poster-shell"><img src="${ed.poster}" alt="${ed.title}"></div>
+        <button class="reduce-btn" type="button" aria-label="Réduire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="zoom-nav-btn prev" type="button" aria-label="Edition précédente" ${showPrev ? '' : 'hidden'}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="zoom-nav-btn next" type="button" aria-label="Edition suivante" ${showNext ? '' : 'hidden'}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
       editionText.innerHTML = (editionCopy[ed.folder] || []).map((line) => `<span class="line">${line}</span>`).join('');
       collage.innerHTML = '';
 
@@ -448,7 +476,27 @@ function cardTemplate(ed) {
 
     hero.addEventListener('click', (e) => {
       if (!hero.querySelector('img')) return;
-      if (e.target && e.target.classList && e.target.classList.contains('reduce-btn')) {
+      if (e.target && e.target.closest && e.target.closest('.zoom-nav-btn.prev')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (currentEditionIndex <= 0) return;
+        const keepZoom = stage.classList.contains('poster-zoomed');
+        const nextIndex = currentEditionIndex - 1;
+        openComposition(editions[nextIndex], nextIndex);
+        if (keepZoom) stage.classList.add('poster-zoomed');
+        return;
+      }
+      if (e.target && e.target.closest && e.target.closest('.zoom-nav-btn.next')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (currentEditionIndex >= editions.length - 1) return;
+        const keepZoom = stage.classList.contains('poster-zoomed');
+        const nextIndex = currentEditionIndex + 1;
+        openComposition(editions[nextIndex], nextIndex);
+        if (keepZoom) stage.classList.add('poster-zoomed');
+        return;
+      }
+      if (e.target && e.target.closest && e.target.closest('.reduce-btn')) {
         stage.classList.remove('poster-zoomed');
         return;
       }
