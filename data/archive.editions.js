@@ -1,4 +1,4 @@
-{
+window.__ARCHIVE_EDITIONS__ = {
   "generatedAt": "2026-05-15T15:06:15",
   "editions": [
     {
@@ -243,4 +243,4 @@
       ]
     }
   ]
-}
+};
