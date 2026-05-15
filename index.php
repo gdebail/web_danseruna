@@ -1,4 +1,16 @@
 ﻿<?php
+$musicDir = __DIR__ . DIRECTORY_SEPARATOR . 'music';
+$musicFiles = [];
+if (is_dir($musicDir)) {
+  $matches = glob($musicDir . DIRECTORY_SEPARATOR . '*.mp3') ?: [];
+  foreach ($matches as $fullPath) {
+    $name = basename($fullPath);
+    $musicFiles[] = [
+      'title' => pathinfo($name, PATHINFO_FILENAME),
+      'src' => 'music/' . rawurlencode($name),
+    ];
+  }
+}
 ?><!doctype html>
 <html lang="fr">
 <head>
@@ -107,6 +119,14 @@
     .modal-card { width: min(560px, 100%); background: #111; border: 1px solid #444; border-radius: 14px; padding: 20px; }
     .modal-card h2 { margin-top: 0; }
     .close-btn { margin-top: 12px; border: 0; border-radius: 8px; background: #ffe94d; color: #000; padding: 10px 14px; font-weight: 700; cursor: pointer; }
+    .music-modal { position: fixed; inset: 0; background: rgba(0,0,0,.72); display: none; align-items: center; justify-content: center; z-index: 110; padding: 20px; }
+    .music-modal.open { display: flex; }
+    .music-card { width: min(760px, 100%); max-height: 86vh; overflow: auto; background: #101010; border: 1px solid #404040; border-radius: 14px; padding: 18px; }
+    .music-card h2 { margin: 0 0 12px; }
+    .music-list { display: grid; gap: 12px; }
+    .music-track { border: 1px solid #2f2f2f; border-radius: 10px; background: #0a0a0a; padding: 10px; }
+    .music-track-title { display:block; font-weight:700; margin-bottom: 8px; font-size: 14px; color: #f5f5f5; }
+    .music-track audio { width: 100%; }
     .archive-modal { position: fixed; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(2px); display: none; align-items: center; justify-content: center; z-index: 120; padding: 16px; }
     .archive-modal.open { display: flex; }
     .archive-modal-card { position: relative; width: min(980px, 84vw); height: min(78vh, 760px); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.18); background: #000; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
@@ -144,7 +164,7 @@
       <span class="tag">SELECTION PHOTOS REGIS</span>
     </section>
 
-    <section class="zone" data-mode="modal" data-title="ENREGISTREMENT BAL" data-text="ENREGISTREMENT BAL">
+    <section class="zone" data-mode="music" data-title="ENREGISTREMENT BAL" data-text="ENREGISTREMENT BAL">
       <img class="overlay" src="FOND-SITE-DANSERUNA-MUSICIENS-transparent.png" alt="">
       <button class="hotspot" style="left:3.1771%;top:49.6527%;width:38.9583%;height:19.7916%; --rr: 41% 59% 56% 44% / 60% 40% 52% 48%; --rr-a: 41% 59% 56% 44% / 60% 40% 52% 48%; --rr-b: 66% 34% 61% 39% / 35% 65% 31% 69%; --rr-c: 30% 70% 36% 64% / 72% 28% 63% 37%;" aria-label="MUSICIENS"></button>
       <span class="tag">ENREGISTREMENT BAL</span>
@@ -187,8 +207,16 @@
       <iframe class="archive-frame" id="archiveFrame" src="" title="Archive Danseruna"></iframe>
     </div>
   </div>
+  <div class="music-modal" id="musicModal" role="dialog" aria-modal="true" aria-labelledby="music-title">
+    <div class="music-card">
+      <h2 id="music-title">Enregistrements Bal</h2>
+      <div class="music-list" id="musicList"></div>
+      <button class="close-btn" id="closeMusicModal" type="button">Fermer</button>
+    </div>
+  </div>
 
   <script>
+    const musicTracks = <?php echo json_encode($musicFiles, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
     const zones = document.querySelectorAll('.zone');
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modal-title');
@@ -197,6 +225,9 @@
     const archiveModal = document.getElementById('archiveModal');
     const archiveFrame = document.getElementById('archiveFrame');
     const archiveBaseUrl = 'pages/archive-danseruna.html?direct=1&edition=8';
+    const musicModal = document.getElementById('musicModal');
+    const musicList = document.getElementById('musicList');
+    const closeMusicModal = document.getElementById('closeMusicModal');
     const scene = document.getElementById('scene');
     let lockedZone = null;
     let layoutRaf = null;
@@ -248,6 +279,19 @@
           modalTitle.textContent = zone.dataset.title || 'Info';
           modalText.textContent = zone.dataset.text || '';
           modal.classList.add('open');
+        } else if (mode === 'music') {
+          musicList.innerHTML = '';
+          if (!musicTracks.length) {
+            musicList.innerHTML = '<p>Aucun MP3 trouvé dans /music.</p>';
+          } else {
+            musicTracks.forEach((track) => {
+              const item = document.createElement('div');
+              item.className = 'music-track';
+              item.innerHTML = `<span class="music-track-title">${track.title}</span><audio controls preload="none" src="${track.src}"></audio>`;
+              musicList.appendChild(item);
+            });
+          }
+          musicModal.classList.add('open');
         } else if (mode === 'archive') {
           const refreshUrl = `${archiveBaseUrl}&t=${Date.now()}`;
           archiveFrame.setAttribute('src', refreshUrl);
@@ -304,6 +348,8 @@
 
     closeModal.addEventListener('click', () => { modal.classList.remove('open'); unlockZone(); });
     modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('open'); unlockZone(); } });
+    closeMusicModal.addEventListener('click', () => { musicModal.classList.remove('open'); unlockZone(); });
+    musicModal.addEventListener('click', (e) => { if (e.target === musicModal) { musicModal.classList.remove('open'); unlockZone(); } });
     archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) { archiveModal.classList.remove('open'); unlockZone(); } });
     window.addEventListener('message', (e) => {
       if (e && e.data && e.data.type === 'danseruna-archive-close') {
@@ -314,12 +360,13 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         modal.classList.remove('open');
+        musicModal.classList.remove('open');
         archiveModal.classList.remove('open');
         unlockZone();
       }
     });
     scene.addEventListener('click', (e) => {
-      if (!e.target.closest('.hotspot') && !modal.classList.contains('open') && !archiveModal.classList.contains('open')) unlockZone();
+      if (!e.target.closest('.hotspot') && !modal.classList.contains('open') && !musicModal.classList.contains('open') && !archiveModal.classList.contains('open')) unlockZone();
     });
 
     // Initial pass after first paint.
