@@ -13,6 +13,7 @@
 
   const musicModal = document.getElementById('musicModal');
   const musicList = document.getElementById('musicList');
+  let musicListBuilt = false;
 
   const defaultController = window.ModalManager.createModalController({
     root: defaultModal,
@@ -29,9 +30,6 @@
     root: musicModal,
     closeSelector: '#closeMusicModal',
     onClose: function () {
-      musicModal.querySelectorAll('audio').forEach(function (audio) {
-        audio.pause();
-      });
       unlockZone();
     },
   });
@@ -77,14 +75,17 @@
     defaultController.open();
   }
 
-  function openMusicModal() {
+  function buildMusicListOnce() {
+    if (musicListBuilt) return;
+    musicListBuilt = true;
     musicList.innerHTML = '';
 
     if (!config.musicTracks.length) {
       musicList.innerHTML = '<p>Aucun MP3 trouvé dans /music.</p>';
-      musicController.open();
       return;
     }
+
+    const audios = [];
 
     config.musicTracks.forEach(function (track) {
       const item = document.createElement('div');
@@ -99,11 +100,21 @@
       audio.preload = 'none';
       audio.src = track.src;
 
+      audio.addEventListener('play', function () {
+        audios.forEach(function (otherAudio) {
+          if (otherAudio !== audio && !otherAudio.paused) otherAudio.pause();
+        });
+      });
+
+      audios.push(audio);
       item.appendChild(title);
       item.appendChild(audio);
       musicList.appendChild(item);
     });
+  }
 
+  function openMusicModal() {
+    buildMusicListOnce();
     musicController.open();
   }
 
