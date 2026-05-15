@@ -21,7 +21,7 @@
     .meta b { color:var(--accent); font-size:12px; letter-spacing:.08em; }
     .meta div { margin-top:4px; font-size:15px; font-weight:700; }
 
-    .nav { position:absolute; top:42%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%; border:1px solid rgba(255,233,77,.6); background:rgba(0,0,0,.75); color:#ffe94d; font-size:28px; font-weight:700; cursor:pointer; z-index:3; }
+    .nav { position:absolute; top:42%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%; border:2px solid rgba(255,233,77,.75); background:rgba(0,0,0,.75); color:#ffe94d; font-size:28px; font-weight:700; cursor:pointer; z-index:3; }
     .nav.left { left:-24px; }
     .nav.right { right:-24px; }
     .nav svg { width:20px; height:20px; display:block; margin:auto; }
@@ -41,7 +41,7 @@
       position:absolute;
       top:10px;
       right:10px;
-      border:1px solid rgba(255,233,77,.85);
+      border:2px solid rgba(255,233,77,.9);
       background:rgba(0,0,0,.82);
       color:#ffe94d;
       border-radius:999px;
@@ -72,7 +72,7 @@
       width:44px;
       height:44px;
       border-radius:50%;
-      border:1px solid rgba(255,233,77,.55);
+      border:2px solid rgba(255,233,77,.75);
       background:rgba(0,0,0,.74);
       color:#ffe94d;
       font-size:28px;
@@ -92,7 +92,7 @@
       position:absolute;
       right:12px;
       top:10px;
-      border:1px solid rgba(255,233,77,.85);
+      border:2px solid rgba(255,233,77,.9);
       background:rgba(0,0,0,.82);
       color:#ffe94d;
       border-radius:999px;
@@ -109,6 +109,7 @@
       box-shadow:0 8px 18px rgba(0,0,0,.35);
     }
     .close:hover { background:rgba(255,233,77,.12); }
+    .close svg { width:18px; height:18px; display:block; }
     .edition-text { position:absolute; left:18px; right:44%; bottom:16px; z-index:4; color:#fff; font-size:14px; line-height:1.34; text-shadow:0 2px 8px rgba(0,0,0,.6); }
     .edition-text .line { display:inline-block; margin:0 10px 8px 0; padding:7px 11px; border-radius:999px; background:rgba(0,0,0,.44); border:1px solid rgba(255,255,255,.18); backdrop-filter: blur(2px); }
 
@@ -138,7 +139,7 @@
     <h1>Archive Danseruna</h1>
     <div class="sub">Clique une affiche pour ouvrir une composition photo.</div>
     <div class="carousel-shell">
-      <button class="nav left" id="leftBtn" aria-label="PrÃ©cÃ©dent">
+      <button class="nav left" id="leftBtn" aria-label="Précédent">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="carousel" id="carousel"></div>
@@ -150,13 +151,17 @@
 
   <div class="modal" id="modal">
     <div class="stage" id="stage">
-      <button class="close" id="closeBtn" aria-label="Fermer">&times;</button>
+      <button class="close" id="closeBtn" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7 7l10 10M17 7l-10 10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
       <div class="label" id="label"></div>
       <div class="edition-text" id="editionText"></div>
       <div class="collage" id="collage"></div>
       <div class="hero" id="hero"></div>
       <div class="hero-nav-wrap">
-        <button class="hero-nav prev" id="modalPrevBtn" aria-label="Edition prÃ©cÃ©dente">
+        <button class="hero-nav prev" id="modalPrevBtn" aria-label="Edition précédente">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <button class="hero-nav next" id="modalNextBtn" aria-label="Edition suivante">
@@ -166,6 +171,7 @@
     </div>
   </div>
 
+  <script src="../data/archive.editions.js"></script>
   <script>
 const params = new URLSearchParams(window.location.search);
 const directMode = params.get('direct') === '1';
@@ -189,6 +195,24 @@ let editions = [];
 let editionCopy = {};
 
 async function loadArchiveData() {
+  // file:// fallback (mobile/in-app browsers often block fetch on local JSON)
+  if (window.DANSERUNA_ARCHIVE_DATA && Array.isArray(window.DANSERUNA_ARCHIVE_DATA.editions)) {
+    const source = window.DANSERUNA_ARCHIVE_DATA.editions;
+    editions = source.map((ed) => ({
+      year: ed.year,
+      edition: ed.edition,
+      folder: ed.folder,
+      title: ed.title || `Danseruna #${ed.edition} (${ed.year})`,
+      poster: ed.poster || null,
+      images: Array.isArray(ed.images) ? ed.images : [],
+    }));
+    editionCopy = {};
+    source.forEach((ed) => {
+      editionCopy[ed.folder] = Array.isArray(ed.credits) ? ed.credits : [];
+    });
+    return;
+  }
+
   const response = await fetch('../data/archive.editions.json', { cache: 'no-store' });
   if (!response.ok) {
     throw new Error('Impossible de charger data/archive.editions.json');
@@ -247,7 +271,7 @@ function cardTemplate(ed) {
       tileStates = [];
       label.textContent = ed.title;
       stage.classList.remove('poster-zoomed');
-      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="RÃ©duire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
+      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="Réduire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
       editionText.innerHTML = (editionCopy[ed.folder] || []).map((line) => `<span class="line">${line}</span>`).join('');
       collage.innerHTML = '';
 

@@ -86,7 +86,11 @@ if (is_dir($musicDir)) {
     <div class="music-card">
       <h2 id="music-title">Enregistrements Bal</h2>
       <div class="music-list" id="musicList"></div>
-      <button class="close-btn" id="closeMusicModal" type="button">Fermer</button>
+      <button class="close-btn close-icon-btn" id="closeMusicModal" type="button" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7 7l10 10M17 7l-10 10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
     </div>
   </div>
   <script>
