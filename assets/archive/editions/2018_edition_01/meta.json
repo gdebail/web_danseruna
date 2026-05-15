@@ -1,13 +1,13 @@
-﻿{
-    "year":  2018,
-    "edition":  1,
-    "folder":  "2018_edition_01",
-    "title":  "Danseruna #1 (2018)",
-    "poster":  null,
-    "images":  [
-
-               ],
-    "credits":  [
-                    "(no image downloaded)"
-                ]
+{
+    "year": 2018,
+    "edition": 1,
+    "folder": "2018_edition_01",
+    "title": "Danseruna #1 (2018)",
+    "poster": "../assets/archive/editions/2018_edition_01/poster.jpg",
+    "images": [
+        "../assets/archive/editions/2018_edition_01/poster.jpg"
+    ],
+    "credits": [
+        "ORGANISATEURS: Gioras, K?zia, Marjorie, Coko"
+    ]
 }
