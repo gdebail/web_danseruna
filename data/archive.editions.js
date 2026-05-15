@@ -1,4 +1,4 @@
-﻿window.__ARCHIVE_EDITIONS__ = {
+﻿window.DANSERUNA_ARCHIVE_DATA = {
     "generatedAt":  "2026-05-15T15:06:15",
     "editions":  [
                      {
@@ -239,38 +239,36 @@
                          "poster":  "../assets/archive/editions/2018_edition_01/poster.jpg",
                          "images":  [
                                         "../assets/archive/editions/2018_edition_01/poster.jpg",
-                                        "../assets/archive/editions/2018_edition_01/photos/11 11 2013 114.JPG",
-                                        "../assets/archive/editions/2018_edition_01/photos/20180530_172842[1].jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/andre.jpg",
-                                        "../assets/archive/editions/2018_edition_01/photos/Coralie helper.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/DSC_4701.jpg",
-                                        "../assets/archive/editions/2018_edition_01/photos/DSC_4702.jpg",
-                                        "../assets/archive/editions/2018_edition_01/photos/DSC_4706.jpg",
-                                        "../assets/archive/editions/2018_edition_01/photos/galerie3.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/image.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_1004.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_1018.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_2570.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_2597 - Version 2.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_2889.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_2891.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_2894.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/IMG_7933.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/LAURENT_CAVALIE1_NICOLAS_FAURE.JPG",
-                                        "../assets/archive/editions/2018_edition_01/photos/LAURENT_CAVALIE2_NICOLAS_FAURE.JPG",
-                                        "../assets/archive/editions/2018_edition_01/photos/lucie helper.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/lucille helper.jpeg",
-                                        "../assets/archive/editions/2018_edition_01/photos/MON_0288.jpg",
-                                        "../assets/archive/editions/2018_edition_01/photos/Ondine helper.jpg"
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-001.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-002.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-003.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-004.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-005.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-006.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-007.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-008.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-009.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-010.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-011.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-012.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-013.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-014.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-015.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-016.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-017.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-018.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-019.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-020.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-021.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-022.jpg",
+                                        "../assets/archive/editions/2018_edition_01/photos/photo-023.jpg"
                                     ],
                          "credits":  [
-                                         "INTERVENANTS: Guilhem Herinx, Julien Blondel, Nathalie Mann",
+                                         "INTERVENANTS: Guilhem Herinx, Julien B., Nathalie Mann",
                                          "MUSICIENS: Laurent Cavalié, Guilhem Verger, Claire Vincent, Sylvain Rabourdin, Rémi Tatard",
-                                         "RÉGISSEUR SON: Danito Torrico",
                                          "ORGANISATEURS: Gioras, Kézia, Marjorie, Coko"
                                      ]
                      }
                  ]
 }
-
 

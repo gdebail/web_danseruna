@@ -74,7 +74,11 @@ if (is_dir($musicDir)) {
     <div class="modal-card">
       <h2 id="modal-title"></h2>
       <p id="modal-text"></p>
-      <button class="close-btn" id="closeModal" type="button">Fermer</button>
+      <button class="close-btn close-icon-btn" id="closeModal" type="button" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7 7l10 10M17 7l-10 10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
     </div>
   </div>
   <div class="archive-modal" id="archiveModal" role="dialog" aria-modal="true" aria-label="Archive Danseruna">
