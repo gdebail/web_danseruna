@@ -1,0 +1,31 @@
+﻿{
+    "year":  2023,
+    "edition":  6,
+    "folder":  "2023_edition_06",
+    "title":  "Danseruna #6 (2023)",
+    "poster":  "../assets/archive/editions/2023_edition_06/poster.jpg",
+    "images":  [
+                   "../assets/archive/editions/2023_edition_06/poster.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-001.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-002.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-003.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-004.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-005.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-006.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-007.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-008.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-009.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-010.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-011.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-012.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-013.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-014.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-015.jpg",
+                   "../assets/archive/editions/2023_edition_06/photos/photo-016.jpg"
+               ],
+    "credits":  [
+                    "Passeurs de danse: Bastien Auber (contact impro), Delphine Lafoix (tango contact), Anatole Lorne (folk), Anne Mutuel (improvisation)",
+                    "Aina Tulier, Alisa Vasylkova, Anne Piffard, Gaspar Pocai, Guilhem Verger, Jean-Loup Perry, Julien Blondel, Sylvain Rabourdin, Juri Cainero, LeÃ¯le Zitouni",
+                    "ORGANISATION: Adrien, Marjorie, Pascal, KÃ©zia"
+                ]
+}

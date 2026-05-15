@@ -1,0 +1,33 @@
+﻿{
+    "year":  2022,
+    "edition":  5,
+    "folder":  "2022_edition_05",
+    "title":  "Danseruna #5 (2022)",
+    "poster":  "../assets/archive/editions/2022_edition_05/poster.jpg",
+    "images":  [
+                   "../assets/archive/editions/2022_edition_05/poster.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-001.png",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-002.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-003.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-004.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-005.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-006.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-007.png",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-008.png",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-009.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-010.png",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-011.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-012.png",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-013.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-014.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-015.png",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-016.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-017.jpg",
+                   "../assets/archive/editions/2022_edition_05/photos/photo-018.jpg"
+               ],
+    "credits":  [
+                    "PASSEURS DE DANSE: Robin Decourcy (composition instantanÃ©e), Laure Fourest (tango), Anatole Lorne (folk), Aurore Simon (contact impro)",
+                    "MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras, Laurent CavaliÃ©, Lior Shoov, Lisa Hervas, Lucie Laigle, RaphaÃ«l AndrÃ©, Rolland Martinez, Sophie Azambre Le Roy, Romain De Mesmey, Remy Tatard",
+                    "ORGANISATION: Marjorie, Adrien, Baptiste, KÃ©zia"
+                ]
+}

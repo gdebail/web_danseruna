@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
@@ -138,7 +138,7 @@
     <h1>Archive Danseruna</h1>
     <div class="sub">Clique une affiche pour ouvrir une composition photo.</div>
     <div class="carousel-shell">
-      <button class="nav left" id="leftBtn" aria-label="Précédent">
+      <button class="nav left" id="leftBtn" aria-label="PrÃ©cÃ©dent">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="carousel" id="carousel"></div>
@@ -156,7 +156,7 @@
       <div class="collage" id="collage"></div>
       <div class="hero" id="hero"></div>
       <div class="hero-nav-wrap">
-        <button class="hero-nav prev" id="modalPrevBtn" aria-label="Edition précédente">
+        <button class="hero-nav prev" id="modalPrevBtn" aria-label="Edition prÃ©cÃ©dente">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <button class="hero-nav next" id="modalNextBtn" aria-label="Edition suivante">
@@ -167,66 +167,51 @@
   </div>
 
   <script>
-    const editions = [{"year": 2025, "edition": 8, "folder": "2025_edition_08", "title": "Danseruna #8 (2025)", "poster": "../archive_danseruna_scrape/2025_edition_08/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2025_edition_08/images/img_001.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_002.png", "../archive_danseruna_scrape/2025_edition_08/images/img_003.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_004.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_005.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_006.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_007.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_008.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_009.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_010.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_011.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_012.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_013.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_014.jpg", "../archive_danseruna_scrape/2025_edition_08/images/img_015.jpg", "../archive_danseruna_scrape/2025_edition_08/images/Thumbs.db"]}, {"year": 2024, "edition": 7, "folder": "2024_edition_07", "title": "Danseruna #7 (2024)", "poster": "../archive_danseruna_scrape/2024_edition_07/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2024_edition_07/images/img_001.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_002.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_003.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_004.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_005.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_006.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_007.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_008.png", "../archive_danseruna_scrape/2024_edition_07/images/img_009.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_010.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_011.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_012.png", "../archive_danseruna_scrape/2024_edition_07/images/img_013.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_014.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_015.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_016.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_017.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_018.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_019.jpg", "../archive_danseruna_scrape/2024_edition_07/images/img_020.jpg"]}, {"year": 2023, "edition": 6, "folder": "2023_edition_06", "title": "Danseruna #6 (2023)", "poster": "../archive_danseruna_scrape/2023_edition_06/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2023_edition_06/images/img_001.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_002.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_003.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_004.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_005.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_006.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_007.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_008.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_009.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_010.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_011.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_012.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_013.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_014.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_015.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_016.jpg", "../archive_danseruna_scrape/2023_edition_06/images/img_017.jpg"]}, {"year": 2022, "edition": 5, "folder": "2022_edition_05", "title": "Danseruna #5 (2022)", "poster": "../archive_danseruna_scrape/2022_edition_05/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2022_edition_05/images/img_001.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_002.png", "../archive_danseruna_scrape/2022_edition_05/images/img_003.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_004.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_005.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_006.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_007.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_008.png", "../archive_danseruna_scrape/2022_edition_05/images/img_009.png", "../archive_danseruna_scrape/2022_edition_05/images/img_010.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_011.png", "../archive_danseruna_scrape/2022_edition_05/images/img_012.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_013.png", "../archive_danseruna_scrape/2022_edition_05/images/img_014.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_015.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_016.png", "../archive_danseruna_scrape/2022_edition_05/images/img_017.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_018.jpg", "../archive_danseruna_scrape/2022_edition_05/images/img_019.jpg"]}, {"year": 2021, "edition": 4, "folder": "2021_edition_04", "title": "Danseruna #4 (2021)", "poster": "../archive_danseruna_scrape/2021_edition_04/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2021_edition_04/images/img_001.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_002.png", "../archive_danseruna_scrape/2021_edition_04/images/img_003.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_004.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_005.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_006.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_007.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_008.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_009.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_010.png", "../archive_danseruna_scrape/2021_edition_04/images/img_011.png", "../archive_danseruna_scrape/2021_edition_04/images/img_012.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_013.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_014.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_015.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_016.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_017.jpg", "../archive_danseruna_scrape/2021_edition_04/images/img_018.png", "../archive_danseruna_scrape/2021_edition_04/images/img_019.jpg"]}, {"year": 2020, "edition": 3, "folder": "2020_edition_03", "title": "Danseruna #3 (2020)", "poster": "../archive_danseruna_scrape/2020_edition_03/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2020_edition_03/images/img_001.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_002.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_003.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_004.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_005.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_006.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_007.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_008.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_009.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_010.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_011.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_012.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_013.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_014.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_015.png", "../archive_danseruna_scrape/2020_edition_03/images/img_016.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_017.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_018.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_019.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_020.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_021.jpg", "../archive_danseruna_scrape/2020_edition_03/images/img_022.jpg"]}, {"year": 2019, "edition": 2, "folder": "2019_edition_02", "title": "Danseruna #2 (2019)", "poster": "../archive_danseruna_scrape/2019_edition_02/images/img_001.jpg", "images": ["../archive_danseruna_scrape/2019_edition_02/images/img_001.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_002.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_003.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_004.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_005.png", "../archive_danseruna_scrape/2019_edition_02/images/img_006.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_007.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_008.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_009.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_010.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_011.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_012.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_013.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_014.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_015.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_016.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_017.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_018.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_019.jpg", "../archive_danseruna_scrape/2019_edition_02/images/img_020.jpg"]}, {"year": 2018, "edition": 1, "folder": "2018_edition_01", "title": "Danseruna #1 (2018)", "poster": null, "images": []}];
+const params = new URLSearchParams(window.location.search);
+const directMode = params.get('direct') === '1';
+const requestedEdition = Number(params.get('edition'));
+const requestedEditionNum = Number.isFinite(requestedEdition) ? requestedEdition : null;
 
-    const params = new URLSearchParams(window.location.search);
-    const directMode = params.get('direct') === '1';
-    const requestedEdition = Number(params.get('edition'));
-    const requestedEditionNum = Number.isFinite(requestedEdition) ? requestedEdition : null;
+const carousel = document.getElementById('carousel');
+const modal = document.getElementById('modal');
+const collage = document.getElementById('collage');
+const hero = document.getElementById('hero');
+const stage = document.getElementById('stage');
+const label = document.getElementById('label');
+const editionText = document.getElementById('editionText');
+const modalPrevBtn = document.getElementById('modalPrevBtn');
+const modalNextBtn = document.getElementById('modalNextBtn');
 
-    const carousel = document.getElementById('carousel');
-    const modal = document.getElementById('modal');
-    const collage = document.getElementById('collage');
-    const hero = document.getElementById('hero');
-    const stage = document.getElementById('stage');
-    const label = document.getElementById('label');
-    const editionText = document.getElementById('editionText');
-    const modalPrevBtn = document.getElementById('modalPrevBtn');
-    const modalNextBtn = document.getElementById('modalNextBtn');
-    let motionRaf = null;
-    let tileStates = [];
-    let currentEditionIndex = 0;
-    const editionCopy = {
-      "2018_edition_01": [
-      ],
-      "2019_edition_02": [
-            "Enseignants: Mathieu Maisonneuve (Tango), Guilhem Hérinx (Folk), Bastien Auber (Contact Improvisation), Mathilde Duclaux (Composition instantanée)",
-            "Musiciens: Laurent Cavalié, Jérémy Champagne, Guilhem Verger, Elisa Trébouville, Rémy Tatard, Karine Berny, Corentin Coko, Laeticia Dutech, Jean-Pierre Sarzier, Claire Vincent, François Gozlan, Lionel Banevitch, Bruno Sentou",
-            "ORGANISATEURS: Gioras, Kézia, Marjorie, Coko"
-      ],
-      "2020_edition_03": [
-            "ENSEIGNANTS: Stéphanie Auberville (contact impro), Laure Fourest (Tango), Laurent Gibeaux (composition instantanée),  Anatole Lorne (Folk)",
-            "MUSICIENS: Hélène Duret, Corentin Coko, Titouan Billon, Jean-Pierre Sarzier, Rémy Tatard, Sylvain Raboudin, Adrien Nuguet, Guilhem Verger, Vanessa Virot, Marion Carrouché, Florent Lalet, Lionel Banevitch, Anne Piffard, Bruno Sentou",
-            "ORGANISATEURS: Gioras, Kézia, Marjorie, Coko"
-      ],
-      "2021_edition_04": [
-            "ENSEIGNANTS: Robin Decourcy (composition instantanée),  Amanda Mahieux (folk),  Aurore Simon (contact impro),  Remy Tatard (tango)",
-            "MUSICIENS: Remi Geffroy, Anne Piffard, Romain De Mesmay, Laurent Gehant, Sophie Azambre Le Roy, Jonathan Balmefrezol, Julia Mondon, Camille Secheppet, Fawzi Berger, Leila Zitouni, Jérémie Couraut, Agathe Pitarch, Julien Lameiras",
-            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia"
-      ],
-      "2022_edition_05": [
-            "PASSEURS DE DANSE: Robin Decourcy (composition instantanée), Laure Fourest (tango), Anatole Lorne (folk), Aurore Simon (contact impro)",
-            "MUSICIENS: Agathe Pitarch, Laurent Gehant, Jules Beckman, Julien Lameras, Laurent Cavalié, Lior Shoov, Lisa Hervas, Lucie Laigle, Raphaël André, Rolland Martinez, Sophie Azambre Le Roy, Romain De Mesmey, Remy Tatard",
-            "ORGANISATION: Marjorie, Adrien, Baptiste, Kézia"
-      ],
-      "2023_edition_06": [
-            "Passeurs de danse: Bastien Auber (contact impro), Delphine Lafoix (tango contact), Anatole Lorne (folk), Anne Mutuel (improvisation)",
-            "Aina Tulier, Alisa Vasylkova, Anne Piffard, Gaspar Pocai, Guilhem Verger, Jean-Loup Perry, Julien Blondel, Sylvain Rabourdin, Juri Cainero, Leïle Zitouni",
-            "ORGANISATION: Adrien, Marjorie, Pascal, Kézia"
-      ],
-      "2024_edition_07": [
-            "Passeuses de danse: Leïlani Weis, Emeline N'Guyen, Marion Delaval, Anne Mutuel",
-            "Meute des musicien-ne-s: Jean Loup Perry, Akram Chaib, Juri Cainero, Neda Cainero, Charlotte Espieussas, Gladys Ventrepotte, Marion Piel, Irepan Mejia Almonte, Florent Manneveau, Laurent Gehan, Gaspar Pouyé",
-            "ORGANISATION: Adrien, Kézia, Marjorie, Pascal"
-      ],
-      "2025_edition_08": [
-            "Passeuses de danse: Eva Yufra, Emeline N'Guyen, Marion Delaval, Anne Mutuel",
-            "Meute des musicien-ne-s: Cécric Pierini, Gaspar Pocaï, Julien Blondel, Lola Calvet, Oriol Martinez, Romane Bandeira Deconfin, Théophile Joubert",
-            "ORGANISATION: Kézia, Marjorie, Adrien, Pascal"
-      ]
-};
+let motionRaf = null;
+let tileStates = [];
+let currentEditionIndex = 0;
+let editions = [];
+let editionCopy = {};
 
-    function cardTemplate(ed) {
+async function loadArchiveData() {
+  const response = await fetch('../data/archive.editions.json', { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error('Impossible de charger data/archive.editions.json');
+  }
+
+  const payload = await response.json();
+  const source = Array.isArray(payload.editions) ? payload.editions : [];
+
+  editions = source.map((ed) => ({
+    year: ed.year,
+    edition: ed.edition,
+    folder: ed.folder,
+    title: ed.title || `Danseruna #${ed.edition} (${ed.year})`,
+    poster: ed.poster || null,
+    images: Array.isArray(ed.images) ? ed.images : [],
+  }));
+
+  editionCopy = {};
+  source.forEach((ed) => {
+    editionCopy[ed.folder] = Array.isArray(ed.credits) ? ed.credits : [];
+  });
+}
+function cardTemplate(ed) {
       const hasPoster = !!ed.poster;
       const count = ed.images.length;
       return `<article class="card" data-folder="${ed.folder}" ${hasPoster ? '' : 'style="opacity:.55;pointer-events:none"'}>
@@ -235,7 +220,12 @@
       </article>`;
     }
 
-    carousel.innerHTML = editions.map(cardTemplate).join('');
+    function renderCarousel() {
+      carousel.innerHTML = editions.map(cardTemplate).join('');
+      carousel.querySelectorAll('.card').forEach((card, idx) => {
+        card.addEventListener('click', () => openComposition(editions[idx], idx));
+      });
+    }
 
     function rng(seed) {
       let t = seed + 0x6D2B79F5;
@@ -257,7 +247,7 @@
       tileStates = [];
       label.textContent = ed.title;
       stage.classList.remove('poster-zoomed');
-      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="Réduire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
+      hero.innerHTML = ed.poster ? `<img src="${ed.poster}" alt="${ed.title}"><button class="reduce-btn" type="button" aria-label="RÃ©duire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : '';
       editionText.innerHTML = (editionCopy[ed.folder] || []).map((line) => `<span class="line">${line}</span>`).join('');
       collage.innerHTML = '';
 
@@ -410,10 +400,6 @@
       motionRaf = requestAnimationFrame(animateTiles);
     }
 
-    carousel.querySelectorAll('.card').forEach((card, idx) => {
-      card.addEventListener('click', () => openComposition(editions[idx], idx));
-    });
-
     modalPrevBtn.addEventListener('click', () => {
       if (currentEditionIndex <= 0) return;
       const nextIndex = currentEditionIndex - 1;
@@ -453,13 +439,26 @@
     document.getElementById('leftBtn').addEventListener('click', () => carousel.scrollBy({ left: -by(), behavior:'smooth' }));
     document.getElementById('rightBtn').addEventListener('click', () => carousel.scrollBy({ left: by(), behavior:'smooth' }));
 
-    if (directMode) {
-      const idx = requestedEditionNum !== null
-        ? Math.max(0, editions.findIndex((ed) => ed.edition === requestedEditionNum))
-        : 0;
-      const startIndex = idx < 0 ? 0 : idx;
-      openComposition(editions[startIndex], startIndex);
+    async function initArchivePage() {
+      try {
+        await loadArchiveData();
+        renderCarousel();
+
+        if (directMode && editions.length) {
+          const idx = requestedEditionNum !== null
+            ? Math.max(0, editions.findIndex((ed) => ed.edition === requestedEditionNum))
+            : 0;
+          const startIndex = idx < 0 ? 0 : idx;
+          openComposition(editions[startIndex], startIndex);
+        }
+      } catch (error) {
+        console.error(error);
+        carousel.innerHTML = '<p style="color:#f66;padding:10px">Erreur de chargement des archives.</p>';
+      }
     }
+
+    initArchivePage();
   </script>
 </body>
 </html>
+

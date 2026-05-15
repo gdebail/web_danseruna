@@ -1,0 +1,36 @@
+﻿{
+    "year":  2020,
+    "edition":  3,
+    "folder":  "2020_edition_03",
+    "title":  "Danseruna #3 (2020)",
+    "poster":  "../assets/archive/editions/2020_edition_03/poster.jpg",
+    "images":  [
+                   "../assets/archive/editions/2020_edition_03/poster.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-001.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-002.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-003.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-004.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-005.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-006.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-007.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-008.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-009.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-010.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-011.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-012.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-013.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-014.png",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-015.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-016.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-017.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-018.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-019.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-020.jpg",
+                   "../assets/archive/editions/2020_edition_03/photos/photo-021.jpg"
+               ],
+    "credits":  [
+                    "ENSEIGNANTS: StÃ©phanie Auberville (contact impro), Laure Fourest (Tango), Laurent Gibeaux (composition instantanÃ©e),  Anatole Lorne (Folk)",
+                    "MUSICIENS: HÃ©lÃ¨ne Duret, Corentin Coko, Titouan Billon, Jean-Pierre Sarzier, RÃ©my Tatard, Sylvain Raboudin, Adrien Nuguet, Guilhem Verger, Vanessa Virot, Marion CarrouchÃ©, Florent Lalet, Lionel Banevitch, Anne Piffard, Bruno Sentou",
+                    "ORGANISATEURS: Gioras, KÃ©zia, Marjorie, Coko"
+                ]
+}
